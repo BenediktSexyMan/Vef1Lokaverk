@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link href="./static/Main.css" type="text/css" rel="stylesheet">
+        <link href="./static/main.css" type="text/css" rel="stylesheet">
     </head>
     <body>
         <div class="userInfo"><h1>User info?</h1></div>
