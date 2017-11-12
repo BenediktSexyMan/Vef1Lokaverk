@@ -8,7 +8,7 @@ def static_skrar(filename):
 
 @route("/")
 def home():
-  return template('main.tpl')
+  return template('Main.tpl')
 
 if os.environ.get("IS_HEROKU") is not None:
     run(host="0.0.0.0", port=os.environ.get("PORT"))
