@@ -1,0 +1,48 @@
+body {
+    background-color: black;
+    color: black;
+    margin: auto;
+    overflow: hidden;
+}
+
+.userInfo {
+    background-color: green;
+    margin: 0;
+    width: 60%;
+    height 40%;
+    float: left;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+}
+
+.navBar {
+    background-color: yellow;
+    margin:0;
+    width: 40%;
+    height: 100%;
+    line-height: 150px;
+    text-align: center;
+    float: right;
+}
+
+.gameBox {
+    background-color: red;
+    margin:0;
+    width: 60%;
+    height: 800px;
+    line-height: 800px;
+    text-align: center;
+    float: left;
+}
+
+.scoreboard {
+    background-color: blue;
+    margin: 0;
+    margin-top: -50px; 
+    width: 40%;
+    height: 850px;
+    line-height: 850px;
+    text-align: center;
+    float: right;
+}
