@@ -2,6 +2,10 @@ import os
 from bottle import *
 from pymysql import *
 
+@route("/static/<filename>")
+def static_skrar(filename):
+    return static_file(filename, root="./static")
+
 @route("/")
 def home():
   return template('Main.tpl')
