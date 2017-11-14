@@ -189,7 +189,7 @@ function draw() {
             rect(width/2,ph,map(progress,0,100,0,width/2),ph);
             var mess;
             if(progress>=100) {
-                if
+                if(true)
                     currentProgressRate-=0.5;
                 if(random()>0.2) {
                     mess  = floor((random()*100000))%99+1;
