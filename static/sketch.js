@@ -1,3 +1,5 @@
+Array.prototype.sum = function() {return [].reduce.call(this, (a,i) => a+i, 0);}
+
 function choice(choices) {
   return choices[Math.floor(Math.random()*choices.length)];
 }
@@ -28,6 +30,8 @@ var p4;
 var bw;
 var bh;
 var ph;
+var timeOffset          = 5000;
+var currentTimeOffset   = timeOffset;
 var player              = new Player(10);
 var gold                = 0;
 var progress            = 0;
@@ -41,6 +45,7 @@ var FD                  = 26;
 var phd                 = 6;
 var bwd                 = 2;
 var bhd                 = 4;
+var turns               = [0,0];
 var names               = [
     ["Legandary"     , "Awesome"       , "Historic", "Mythical"   , "Fabled"    ],
     ["Melon"         , "Fez"           , "Sombrero", "Bucket"     , "Cone"      ],
@@ -59,6 +64,7 @@ function setup() {
     p3 = createP(player.arm.legs .name + " " + player.arm.legs .def + " def");
     p4 = createP("Gold 0" + " HP " + player.hp);
     document.cookie = "gold=0";
+    document.cookie = "dead=0";
     if(true){
     butt1=createDiv    ("<p>Find Treasure   </p>"                                             );
     butt2=createDiv    ("<p>PRESS           </p>"                                             );
@@ -160,7 +166,6 @@ function windowResized() {
     p2   .style("top"      , (height/10)*4                     .toString()+"px");
     p3   .style("top"      , (height/10)*7                     .toString()+"px");
     p4   .style("font-size", (min(windowWidth,windowHeight)/20).toString()+"px");
-    p4   .style("top"      , "0"                                               );
 
 }
 
@@ -173,33 +178,49 @@ released3 = function(){butt3.style("background-color", "gray"     );};
 moused    = function(){butt1.style("cursor"          , "pointer"  );};
 moused2   = function(){butt2.style("cursor"          , "pointer"  );};
 moused3   = function(){butt3.style("cursor"          , "pointer"  );};
-clicked   = function(){ot=Date.now();t=ot+5000;playin=1;butt1.style("display","none");butt2.style("display","flex");butt4.style("display","none");};
+clicked   = function(){ot=Date.now();t=ot+currentTimeOffset;playin=1;butt1.style("display","none");butt2.style("display","flex");butt4.style("display","none");};
 clicked2  = function(){progress+=currentProgressRate};
 clicked3  = function(){butt3.style("display","none");butt1.style("display","flex");butt4.style("display","flex");select("#page").style("font-size",(min(windowWidth,windowHeight)/bfd).toString()+"px");fd=bfd;};
 
 function draw() {
-    p4.html("Gold " + gold.toString() + " HP " + player.hp);
+    if(0 >= player.hp) {
+        butt1.mouseClicked(function(){});
+        butt1.style("display", "none");
+        document.cookie = "dead=1";
+    }
+    if(p4.html() != "Gold " + gold.toString() + " HP " + player.hp)
+        p4.html("Gold " + gold.toString() + " HP " + player.hp);
     frameRate(60);
     clear();
     if(playin) {
-        print(currentProgressRate);
+        print("ProgressRate " + currentProgressRate.toString());
         tim = Date.now()
         if(tim<t && progress<100){
             fill(255,0,0);
-            rect(width/2, 0,(5000-(t-tim))*(width/10000), ph);
+            rect(width/2, 0,(currentTimeOffset-(t-tim))*(width/(currentTimeOffset*2)), ph);
             fill(0,0,255);
             rect(width/2,ph,map(progress,0,100,0,width/2),ph);
         }
         else {
+            print("TimeOffset " + currentTimeOffset.toString());
             fill(255,0,0);
-            rect(width/2, 0,(5000-(t-tim))*(width/10000), ph);
+            rect(width/2, 0,(currentTimeOffset-(t-tim))*(width/(currentTimeOffset*2)), ph);
             fill(0,0,255);
             rect(width/2,ph,map(progress,0,100,0,width/2),ph);
             var mess;
             if(progress>=100) {
-                if(true)
-                    currentProgressRate-=0.5;
-                if(random()>0.2) {
+                turns[0]++;
+                if(currentProgressRate > 10) {
+                    currentProgressRate-=1;
+                }
+                if(currentTimeOffset == timeOffset) {
+                    currentTimeOffset -= 500;
+                }
+                else {
+                    currentTimeOffset -= floor((timeOffset*25)/(timeOffset-currentTimeOffset))
+                }
+                print(0.2+((turns[1]-turns[0])/500));
+                if(random()>0.3+((turns[1]-turns[0])/500)) {
                     mess  = floor((random()*100000))%99+1;
                     gold += mess;
                     document.cookie = "gold=" + gold.toString();
@@ -225,10 +246,13 @@ function draw() {
                 }
             }
             else {
-                subt = (floor(floor(progressRate - currentProgressRate) / 2) + 2);
-                mess = subt.toString();
-                /*mess = "Lost 2 HP";
-                player.hp -= 2;*/
+                turns[1]++;
+                var subt = 0;
+                subt = (floor(turns[0] / 2) + 2) - (player.arm.head.def + player.arm.torso.def + player.arm.legs.def);
+                if (subt < 0)
+                    subt = 0;
+                mess = "Lost " + subt.toString() + " HP";
+                player.hp -= subt;
             }
             progress = 0;
             playin   = 0;
