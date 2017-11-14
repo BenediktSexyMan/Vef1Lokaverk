@@ -27,7 +27,7 @@
         </div>
         <div class="nav-and-score">
             <div class="navBar"></div>
-            <iframe src="leaderboards"></iframe>
+            <iframe class="scoreboard" src="leaderboards"></iframe>
         </div>
     </body>
 </html>
