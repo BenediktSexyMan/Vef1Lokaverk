@@ -23,7 +23,7 @@
     <body>
         <div class="user-and-game">
             <div class="userInfo"></div>
-            <iframe frameborder="0" onload="resizeIframe(this)" src="game" class="gameBox"></iframe>
+            <iframe src="game" class="gameBox"></iframe>
         </div>
         <div class="nav-and-score">
             <div class="navBar"></div>

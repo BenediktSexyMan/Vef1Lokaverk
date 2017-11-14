@@ -69,7 +69,7 @@ function setup() {
     butt1=createDiv    ("<p>Find Treasure   </p>"                                             );
     butt2=createDiv    ("<p>PRESS           </p>"                                             );
     butt3=createDiv    ("<p>Insert Gold Here</p>"                                             );
-    butt4=createElement("form","<input class=\"submitter\" type=\"submit\">"                  );
+    butt4=createElement("form","<input class=\"submitter\" type=\"submit\">");
     butt1.mousePressed (pressed                                                               );
     butt2.mousePressed (pressed2                                                              );
     butt3.mousePressed (pressed3                                                              );
@@ -132,8 +132,10 @@ function setup() {
     p4   .style        ("top"             , "0"                                               );
     butt3.style        ("bottom"          , "0"                                               );
     butt4.style        ("bottom"          , "0"                                               );
-    butt4.attribute    ("action"          , "http:\\\\www.vaktin.is"                          );
+    butt4.attribute    ("action"          , "/game"                                           );
+    butt4.attribute    ("method"          , "post"                                            );
     butt4.attribute    ("class"           , "former"                                          );
+    butt4.attribute    ("onsubmit"        ,"return confirm('Are you sure?');"                 );
     }
 }
 
@@ -181,6 +183,13 @@ moused3   = function(){butt3.style("cursor"          , "pointer"  );};
 clicked   = function(){ot=Date.now();t=ot+currentTimeOffset;playin=1;butt1.style("display","none");butt2.style("display","flex");butt4.style("display","none");};
 clicked2  = function(){progress+=currentProgressRate};
 clicked3  = function(){butt3.style("display","none");butt1.style("display","flex");butt4.style("display","flex");select("#page").style("font-size",(min(windowWidth,windowHeight)/bfd).toString()+"px");fd=bfd;};
+cl        = function(){
+   if (confirm('Do you want to submit?')) {
+       select(".submitter").submit();
+   } else {
+       return false;
+   }
+}
 
 function draw() {
     if(0 >= player.hp) {

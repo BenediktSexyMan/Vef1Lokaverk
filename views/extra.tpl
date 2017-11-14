@@ -9,6 +9,12 @@
         <script src="./static/sketch.js" type="text/javascript"></script>
     </head>
     <body id="page" style="user-select: none;">
+        % if gold is not None:
+            <h1>{{gold}}</h1>
+        % end
+        % if dead is not None:
+            <h1>{{dead}}</h1>
+        % end
         <style>
             body {
                 padding: 0;
@@ -21,6 +27,9 @@
             }
             p {
                 margin: 0;
+            }
+            h1 {
+                display: none;
             }
             .submitter {
                 width: 100%;

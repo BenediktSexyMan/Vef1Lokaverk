@@ -8,11 +8,15 @@ def static_skrar(filename):
 
 @route("/")
 def home():
-  return template('Main.tpl')
+  return template("Main.tpl")
 
 @route("/game")
-def gamuu():
-    return template('extra.tpl')
+def game():
+    return template("extra.tpl", gold=None, dead=None)
+
+@route("/game", method="POST")
+def game2():
+    return template("extra.tpl", gold=request.get_cookie("gold"), dead=request.get_cookie("dead"))
 
 @route("/user")
 def user():

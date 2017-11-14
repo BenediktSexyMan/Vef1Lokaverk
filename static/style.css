@@ -19,6 +19,8 @@ body {
 }
 
 .nav-and-score {
+    display: flex;
+    flex-flow: column;
     width: 40%;
 }
 
