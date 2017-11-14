@@ -22,9 +22,6 @@
             p {
                 margin: 0;
             }
-            .former {
-
-            }
             .submitter {
                 width: 100%;
                 height: 100%;
