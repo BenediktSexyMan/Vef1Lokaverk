@@ -8,9 +8,16 @@ def static_skrar(filename):
 
 @route("/")
 def home():
-  return template('extra.tpl')
+  return template('Main.tpl')
+
+@route("/game")
+def gamuu():
+    return template('extra.tpl')
+
+@route("/user")
+def user
 
 if os.environ.get("IS_HEROKU") is not None:
     run(host="0.0.0.0", port=os.environ.get("PORT"))
 else:
-    run()
+    run(host="localhost",port="8080")
