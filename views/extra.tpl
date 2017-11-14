@@ -13,7 +13,7 @@
             body {
                 padding: 0;
                 margin: 0;
-                width: 100%;
+                overflow: hidden;
             }
             canvas {
                 vertical-align: top;
@@ -22,15 +22,13 @@
                 margin: 0;
             }
             .former {
-                width: calc(100%/2);
-                height: calc(100%/4);
-                position: absolute;
-                bottom: 0;
-                left: calc(100%/2);
+
             }
             .submitter {
                 width: 100%;
                 height: 100%;
+                border: none;
+                padding: 0;
             }
         </style>
     </body>

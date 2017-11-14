@@ -4,9 +4,13 @@
         <link href="./static/style.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-        <div class="userInfo"><h1>User info</h1></div>
-        <div class="navBar"><h1>Navigation Bar</h1></div>
-        <iframe src="game" class="gameBox"></iframe>
-        <div class="scoreboard"><h1>Leaderboards</h1></div>
+        <div class="user-and-game">
+            <div class="userInfo"></div>
+            <iframe frameborder="0" onload="resizeIframe(this)" src="game" class="gameBox"></iframe>
+        </div>
+        <div class="nav-and-score">
+            <div class="navBar"></div>
+            <div class="scoreboard"></div>
+        </div>
     </body>
 </html>

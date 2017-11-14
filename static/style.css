@@ -1,51 +1,56 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     background-color: black;
     color: black;
-    margin: auto;
-    overflow: hidden;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+}
+
+.user-and-game {
+    display: flex;
+    flex-flow: column;
+    width: 60%;
+}
+
+.nav-and-score {
+    width: 40%;
 }
 
 .userInfo {
+    width: 100%;
+    height: 25%;
     background-color: green;
     margin: 0;
-    width: 60%;
-    height:275.4px;
-    float: left;
-    line-height: 230px;
     text-align: center;
 }
 
 .navBar {
     background-color: yellow;
     margin:0;
-    width: 40%;
-    height: 183.6px;
-    line-height: 150px;
+    width: 100%;
+    height: 15%;
     text-align: center;
-    float: right;
 }
 
 .gameBox {
     background-color: red;
     margin:0;
-    width: 60%;
-    height: 643px;
-    line-height: 643px;
-    text-align: center;
-    float: left;
+    width: 100%;
+    height: 75%;
+    border: none;
 }
 
 .scoreboard {
+    width: 100%;
+    height: 85%;
     background-color: blue;
     margin: 0;
-    width: 40%;
-    height: 735px;
-    line-height: 735px;
-    margin-top: -91px;
     text-align: center;
-    float: right;
-}
-
-iframe {
-    border: none;
 }

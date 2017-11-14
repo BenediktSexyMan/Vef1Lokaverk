@@ -79,6 +79,7 @@ function setup() {
     butt1.style        ("position"        , "absolute"                                        );
     butt2.style        ("position"        , "absolute"                                        );
     butt3.style        ("position"        , "absolute"                                        );
+    butt4.style        ("position"        , "absolute"                                        );
     p1   .style        ("position"        , "absolute"                                        );
     p2   .style        ("position"        , "absolute"                                        );
     p3   .style        ("position"        , "absolute"                                        );
@@ -101,12 +102,15 @@ function setup() {
     butt1.style        ("width"           , bw                                .toString()+"px");
     butt2.style        ("width"           , bw                                .toString()+"px");
     butt3.style        ("width"           , bw                                .toString()+"px");
+    butt4.style        ("width"           , bw                                .toString()+"px");
     butt1.style        ("height"          , bh                                .toString()+"px");
     butt2.style        ("height"          , bh                                .toString()+"px");
     butt3.style        ("height"          , bh                                .toString()+"px");
+    butt4.style        ("height"          , bh                                .toString()+"px");
     butt1.style        ("left"            , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
     butt2.style        ("left"            , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
     butt3.style        ("left"            , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
+    butt4.style        ("left"            , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
     butt1.style        ("font-size"       , (min(windowWidth,windowHeight)/fd).toString()+"px");
     butt2.style        ("font-size"       , (min(windowWidth,windowHeight)/fd).toString()+"px");
     butt3.style        ("font-size"       , (min(windowWidth,windowHeight)/fd).toString()+"px");
@@ -121,6 +125,7 @@ function setup() {
     p4   .style        ("font-size"       , (min(windowWidth,windowHeight)/20).toString()+"px");
     p4   .style        ("top"             , "0"                                               );
     butt3.style        ("bottom"          , "0"                                               );
+    butt4.style        ("bottom"          , "0"                                               );
     butt4.attribute    ("action"          , "http:\\\\www.vaktin.is"                          );
     butt4.attribute    ("class"           , "former"                                          );
     }
@@ -134,12 +139,15 @@ function windowResized() {
     butt1.style("width"    , bw                                .toString()+"px");
     butt2.style("width"    , bw                                .toString()+"px");
     butt3.style("width"    , bw                                .toString()+"px");
+    butt4.style("width"    , bw                                .toString()+"px");
     butt1.style("height"   , bh                                .toString()+"px");
     butt2.style("height"   , bh                                .toString()+"px");
     butt3.style("height"   , bh                                .toString()+"px");
+    butt4.style("height"   , bh                                .toString()+"px");
     butt1.style("left"     , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
     butt2.style("left"     , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
     butt3.style("left"     , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
+    butt4.style("left"     , (((width-bw)/2)+bw*(bwd/4))       .toString()+"px");
     butt1.style("font-size", (min(windowWidth,windowHeight)/fd).toString()+"px");
     butt2.style("font-size", (min(windowWidth,windowHeight)/fd).toString()+"px");
     butt3.style("font-size", (min(windowWidth,windowHeight)/fd).toString()+"px");
