@@ -41,7 +41,7 @@ body {
 }
 
 .gameBox {
-    margin:0;
+    margin: 0;
     width: 100%;
     height: 75%;
     border: none;
@@ -52,5 +52,5 @@ body {
     height: 100%;
     background-color: blue;
     margin: 0;
-    text-align: center;
+    border: none; !important
 }
