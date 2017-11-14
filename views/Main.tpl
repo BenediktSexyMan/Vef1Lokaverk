@@ -6,7 +6,7 @@
     <body>
         <div class="userInfo"><h1>User info</h1></div>
         <div class="navBar"><h1>Navigation Bar</h1></div>
-        <div class="gameBox"><iframe src="game"></iframe></div>
+        <iframe src="game" class="gameBox"></iframe>
         <div class="scoreboard"><h1>Leaderboards</h1></div>
     </body>
 </html>

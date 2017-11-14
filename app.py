@@ -15,7 +15,8 @@ def gamuu():
     return template('extra.tpl')
 
 @route("/user")
-def user
+def user():
+    pass
 
 if os.environ.get("IS_HEROKU") is not None:
     run(host="0.0.0.0", port=os.environ.get("PORT"))
