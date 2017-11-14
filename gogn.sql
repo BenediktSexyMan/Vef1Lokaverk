@@ -1,0 +1,29 @@
+CREATE DATABASE IF NOT EXISTS 1311992289_vef1lokaverk;
+
+USE 1311992289_vef1lokaverk;
+
+CREATE TABLE IF NOT EXISTS users
+(
+	ID INT PRIMARY KEY NOT NULL,
+    name varchar(30) NOT NULL,
+    PPicFile varchar(255),
+    descr TEXT
+);
+
+CREATE TABLE IF NOT EXISTS achievs
+(
+	ID INT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    descr TEXT,
+    userID INT UNIQUE NOT NULL,
+    FOREIGN KEY (userID) REFERENCES users(ID)
+);
+
+CREATE TABLE IF NOT EXISTS submiss
+(
+	ID INT PRIMARY KEY NOT NULL,
+    gold INT NOT NULL,
+    dead INT NOT NULL,
+    userID INT UNIQUE NOT NULL,
+    FOREIGN KEY (userID) REFERENCES users(ID)
+);

@@ -69,7 +69,7 @@ function setup() {
     butt1=createDiv    ("<p>Find Treasure   </p>"                                             );
     butt2=createDiv    ("<p>PRESS           </p>"                                             );
     butt3=createDiv    ("<p>Insert Gold Here</p>"                                             );
-    butt4=createElement("form","<input class=\"submitter\" type=\"submit\">");
+    butt4=createElement("form","<input class=\"submitter\" type=\"submit\">"                  );
     butt1.mousePressed (pressed                                                               );
     butt2.mousePressed (pressed2                                                              );
     butt3.mousePressed (pressed3                                                              );
@@ -228,7 +228,6 @@ function draw() {
                 else {
                     currentTimeOffset -= floor((timeOffset*25)/(timeOffset-currentTimeOffset))
                 }
-                print(0.2+((turns[1]-turns[0])/500));
                 if(random()>0.3+((turns[1]-turns[0])/500)) {
                     mess  = floor((random()*100000))%99+1;
                     gold += mess;
@@ -258,8 +257,8 @@ function draw() {
                 turns[1]++;
                 var subt = 0;
                 subt = (floor(turns[0] / 2) + 2) - (player.arm.head.def + player.arm.torso.def + player.arm.legs.def);
-                if (subt < 0)
-                    subt = 0;
+                if (subt <= 0)
+                    subt = 1;
                 mess = "Lost " + subt.toString() + " HP";
                 player.hp -= subt;
             }

@@ -8,19 +8,8 @@
         <script src="./static/p5.sound.js" type="text/javascript"></script>
         <script src="./static/sketch.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/JavaScript">
-function timedRefresh(timeoutPeriod) {
-	setTimeout("location.reload(true);",timeoutPeriod);
-}
-</script>
     </head>
     <body id="page" style="user-select: none;">
-        % if gold is not None:
-            <h1>{{gold}}</h1>
-        % end
-        % if dead is not None:
-            <h1>{{dead}}</h1>
-        % end
         <style>
             body {
                 padding: 0;

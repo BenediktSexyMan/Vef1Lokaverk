@@ -18,6 +18,8 @@ def game():
 def game2():
     return template("extra.tpl", gold=request.get_cookie("gold"), dead=request.get_cookie("dead"))
 
+
+
 @route("/user")
 def user():
     pass
