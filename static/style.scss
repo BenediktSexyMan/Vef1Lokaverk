@@ -1,0 +1,98 @@
+html {
+    width: 100%;
+    height: 100%;
+    body {
+        color: black;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: row;
+        .user-and-game {
+            display: flex;
+            flex-flow: column;
+            width: 60%;
+        }
+
+        .nav-and-score {
+            display: flex;
+            flex-flow: column;
+            width: 40%;
+        }
+        .user-and-game {
+            display: flex;
+            flex-flow: column;
+            width: 60%;
+        }
+
+        .nav-and-score {
+            display: flex;
+            flex-flow: column;
+            width: 40%;
+        }
+
+        .userInfo {
+            width: 100%;
+            height: 25%;
+            background-color: green;
+            margin: 0;
+            text-align: center;
+        }
+
+        .navBar {
+            background-color: yellow;
+            margin:0;
+            width: 100%;
+            height: 15%;
+            text-align: center;
+        }
+
+        .gameBox {
+            margin: 0;
+            width: 100%;
+            height: 75%;
+            border: none;
+        }
+
+        .scoreboard {
+            width: 100%;
+            height: 85%;
+            background-color: blue;
+            margin: 0;
+            border: none !important;
+        }
+    }
+}
+
+.unlogBody {
+    display: flex;
+    justify-content: center;
+    .wrapper {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        .login {
+            margin-left: 40%;
+            width: 25%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            input {
+                height: 2em;
+                margin-bottom: 0.2em;
+            }
+        }
+        .signup {
+            margin-right: 40%;
+            width: 25%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            input {
+                height: 2em;
+                margin-bottom: 0.2em;
+            }
+        }
+    }
+}

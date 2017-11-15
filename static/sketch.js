@@ -135,7 +135,7 @@ function setup() {
     butt4.attribute    ("action"          , "/game"                                           );
     butt4.attribute    ("method"          , "post"                                            );
     butt4.attribute    ("class"           , "former"                                          );
-    butt4.attribute    ("onsubmit"        ,"return confirm('Are you sure?');"                 );
+    butt4.attribute    ("onsubmit"        , "return confirm('Are you sure?');"                );
     }
 }
 

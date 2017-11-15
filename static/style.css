@@ -1,56 +1,143 @@
 html {
-    width: 100%;
-    height: 100%;
-}
-
-body {
+  width: 100%;
+  height: 100%; }
+  html body {
     color: black;
     margin: 0;
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: row;
-}
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row;
+    -ms-flex-flow: row;
+    flex-flow: row; }
+    html body .user-and-game {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+      flex-flow: column;
+      width: 60%; }
+    html body .nav-and-score {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+      flex-flow: column;
+      width: 40%; }
+    html body .user-and-game {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+      flex-flow: column;
+      width: 60%; }
+    html body .nav-and-score {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+      flex-flow: column;
+      width: 40%; }
+    html body .userInfo {
+      width: 100%;
+      height: 25%;
+      background-color: green;
+      margin: 0;
+      text-align: center; }
+    html body .navBar {
+      background-color: yellow;
+      margin: 0;
+      width: 100%;
+      height: 15%;
+      text-align: center; }
+    html body .gameBox {
+      margin: 0;
+      width: 100%;
+      height: 75%;
+      border: none; }
+    html body .scoreboard {
+      width: 100%;
+      height: 85%;
+      background-color: blue;
+      margin: 0;
+      border: none !important; }
 
-.user-and-game {
+.unlogBody {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .unlogBody .wrapper {
+    width: 50%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: column;
-    width: 60%;
-}
-
-.nav-and-score {
-    display: flex;
-    flex-flow: column;
-    width: 40%;
-}
-
-.userInfo {
-    width: 100%;
-    height: 25%;
-    background-color: green;
-    margin: 0;
-    text-align: center;
-}
-
-.navBar {
-    background-color: yellow;
-    margin:0;
-    width: 100%;
-    height: 15%;
-    text-align: center;
-}
-
-.gameBox {
-    margin: 0;
-    width: 100%;
-    height: 75%;
-    border: none;
-}
-
-.scoreboard {
-    width: 100%;
-    height: 100%;
-    background-color: blue;
-    margin: 0;
-    border: none; !important
-}
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center; }
+    .unlogBody .wrapper .login {
+      margin-left: 40%;
+      width: 25%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+      flex-flow: column;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .unlogBody .wrapper .login input {
+        height: 2em;
+        margin-bottom: 0.2em; }
+    .unlogBody .wrapper .signup {
+      margin-right: 40%;
+      width: 25%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+      flex-flow: column;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .unlogBody .wrapper .signup input {
+        height: 2em;
+        margin-bottom: 0.2em; }
