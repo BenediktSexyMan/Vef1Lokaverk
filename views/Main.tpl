@@ -18,7 +18,7 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="./static/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
-            <link href="./static/style.css" type="text/css" rel="stylesheet">
+        <link href="./static/style.css" type="text/css" rel="stylesheet">
     </head>
     <body>
         <div class="user-and-game">

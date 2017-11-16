@@ -7,7 +7,6 @@
         <script src="./static/p5.dom.js" type="text/javascript"></script>
         <script src="./static/p5.sound.js" type="text/javascript"></script>
         <script src="./static/sketch.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body id="page" style="user-select: none;">
         <style>

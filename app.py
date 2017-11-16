@@ -1,11 +1,33 @@
 import os
 import sys
+import json
 from bottle import *
 from pymysql import *
 conn = connect(host='tsuts.tskoli.is', user='1311992289', passwd='mypassword', db='1311992289_vef1lokaverk')
 
 def rows(cur):
     return [x for x in cur]
+
+data = None
+def updateData():
+    with conn.cursor() as cur:
+        data = {"top": []}
+        cur.execute("SELECT users.name, submiss.gold, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.score DESC LIMIT 10;")
+        ans = rows(cur)
+        for x in ans:
+            data["top"].append(
+                {
+                    "name"  : str(x[0]),
+                    "gold"  : str(x[1]),
+                    "dead"  : str(x[2]),
+                    "score" : str(x[3])
+                }
+            )
+        print(data)
+        with open("./static/top.json", "w") as f:
+            f.truncate()
+            json.dump(data, f)
+updateData()
 
 class User:
     def __init__(self, name, profile="./static/NonePro.jpg", descr=""):
@@ -99,16 +121,26 @@ def home2():
 
 @route("/game")
 def game():
-    ''''user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
+    user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
     if user_cookie is not None:
         return template("extra.tpl")
     else:
-        return template("Main.tpl")  #Mun vera breytt í login/signup síðu'''
-    return template("extra.tpl")
+        redirect("/")
 
 @route("/game", method="POST")
 def game2():
-    return template("extra.tpl")
+    user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
+    if user_cookie is not None:
+        print("sibmitting")
+        gold = request.get_cookie("gold")
+        dead = request.get_cookie("dead")
+        with conn.cursor() as cur:
+            cur.execute("INSERT INTO submiss(gold, dead, score, userID) VALUES (" + str(gold) + ", " + str(dead) + "," + str(gold) + "," + str(user_cookie) + ");")
+            conn.commit()
+            updateData()
+        return template("extra.tpl")
+    else:
+        redirect("/")
 
 @route("/user")
 def user():
@@ -116,7 +148,8 @@ def user():
 
 @route("/leaderboards")
 def leader():
-    return template("leaderbox.tpl")
+    with open("./views/leaderbox.tpl", "r") as f:
+        return f.read()
 
 @route("/process")
 def process():

@@ -202,7 +202,6 @@ function draw() {
     frameRate(60);
     clear();
     if(playin) {
-        print("ProgressRate " + currentProgressRate.toString());
         tim = Date.now()
         if(tim<t && progress<100){
             fill(255,0,0);
@@ -211,7 +210,6 @@ function draw() {
             rect(width/2,ph,map(progress,0,100,0,width/2),ph);
         }
         else {
-            print("TimeOffset " + currentTimeOffset.toString());
             fill(255,0,0);
             rect(width/2, 0,(currentTimeOffset-(t-tim))*(width/(currentTimeOffset*2)), ph);
             fill(0,0,255);
