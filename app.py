@@ -80,7 +80,12 @@ def static_skrar(filename):
 def home():
     user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
     if user_cookie is not None:
-        return template("Main.tpl")
+        with conn.cursor() as cur:
+            cur.execute("SELECT ID FROM users;")
+            if int(user_cookie) in [x[0] for x in rows(cur)]:
+                return template("Main.tpl")
+            else:
+                redirect("/process")
     else:
         return template("unlogged.tpl", logmsg=None, sigmsg=None)
 
@@ -123,7 +128,12 @@ def home2():
 def game():
     user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
     if user_cookie is not None:
-        return template("extra.tpl")
+        with conn.cursor() as cur:
+            cur.execute("SELECT ID FROM users;")
+            if int(user_cookie) in [x[0] for x in rows(cur)]:
+                return template("extra.tpl")
+            else:
+                redirect("/process")
     else:
         redirect("/")
 
@@ -131,14 +141,19 @@ def game():
 def game2():
     user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
     if user_cookie is not None:
-        print("sibmitting")
-        gold = request.get_cookie("gold")
-        dead = request.get_cookie("dead")
         with conn.cursor() as cur:
-            cur.execute("INSERT INTO submiss(gold, dead, score, userID) VALUES (" + str(gold) + ", " + str(dead) + "," + str(gold) + "," + str(user_cookie) + ");")
-            conn.commit()
-            updateData()
-        return template("extra.tpl")
+            cur.execute("SELECT ID FROM users;")
+            if int(user_cookie) in [x[0] for x in rows(cur)]:
+                print("sibmitting")
+                gold = request.get_cookie("gold")
+                dead = request.get_cookie("dead")
+                with conn.cursor() as cur:
+                    cur.execute("INSERT INTO submiss(gold, dead, score, userID) VALUES (" + str(gold) + ", " + str(dead) + "," + str(gold) + "," + str(user_cookie) + ");")
+                    conn.commit()
+                    updateData()
+                return template("extra.tpl")
+            else:
+                redirect("/process")
     else:
         redirect("/")
 
@@ -148,8 +163,17 @@ def user():
 
 @route("/leaderboards")
 def leader():
-    with open("./views/leaderbox.tpl", "r") as f:
-        return f.read()
+    user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
+    if user_cookie is not None:
+        with conn.cursor() as cur:
+            cur.execute("SELECT ID FROM users;")
+            if int(user_cookie) in [x[0] for x in rows(cur)]:
+                with open("./views/leaderbox.tpl", "r") as f:
+                    return f.read()
+            else:
+                redirect("/process")
+    else:
+        redirect("/")
 
 @route("/process")
 def process():

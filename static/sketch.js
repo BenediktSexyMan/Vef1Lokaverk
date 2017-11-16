@@ -65,6 +65,7 @@ function setup() {
     p4 = createP("Gold 0" + " HP " + player.hp);
     document.cookie = "gold=0";
     document.cookie = "dead=0";
+    document.cookie = "justSubbed=0";
     if(true){
     butt1=createDiv    ("<p>Find Treasure   </p>"                                             );
     butt2=createDiv    ("<p>PRESS           </p>"                                             );
@@ -82,6 +83,7 @@ function setup() {
     butt1.mouseClicked (clicked                                                               );
     butt2.mouseClicked (clicked2                                                              );
     butt3.mouseClicked (clicked3                                                              );
+    butt4.mouseClicked (clicked4                                                              );
     butt1.style        ("position"        , "absolute"                                        );
     butt2.style        ("position"        , "absolute"                                        );
     butt3.style        ("position"        , "absolute"                                        );
@@ -183,13 +185,7 @@ moused3   = function(){butt3.style("cursor"          , "pointer"  );};
 clicked   = function(){ot=Date.now();t=ot+currentTimeOffset;playin=1;butt1.style("display","none");butt2.style("display","flex");butt4.style("display","none");};
 clicked2  = function(){progress+=currentProgressRate};
 clicked3  = function(){butt3.style("display","none");butt1.style("display","flex");butt4.style("display","flex");select("#page").style("font-size",(min(windowWidth,windowHeight)/bfd).toString()+"px");fd=bfd;};
-cl        = function(){
-   if (confirm('Do you want to submit?')) {
-       select(".submitter").submit();
-   } else {
-       return false;
-   }
-}
+clicked4  = function(){document.cookie="justSubbed=1"};
 
 function draw() {
     if(0 >= player.hp) {
