@@ -12,15 +12,17 @@ data = None
 def updateData():
     with conn.cursor() as cur:
         data = {"top": []}
-        cur.execute("SELECT users.name, submiss.gold, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.score DESC LIMIT 10;")
+        cur.execute("SELECT users.name, submiss.gold, submiss.wins, submiss.def, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.score DESC LIMIT 10;")
         ans = rows(cur)
         for x in ans:
             data["top"].append(
                 {
                     "name"  : str(x[0]),
                     "gold"  : str(x[1]),
-                    "dead"  : str(x[2]),
-                    "score" : str(x[3])
+                    "wins"  : str(x[2]),
+                    "def"   : str(x[3]),
+                    "dead"  : str(x[4]),
+                    "score" : str(x[5])
                 }
             )
         print(data)
@@ -145,10 +147,13 @@ def game2():
             cur.execute("SELECT ID FROM users;")
             if int(user_cookie) in [x[0] for x in rows(cur)]:
                 print("sibmitting")
-                gold = request.get_cookie("gold")
-                dead = request.get_cookie("dead")
+                gold  = request.get_cookie("gold")
+                dead  = request.get_cookie("dead")
+                wins  = request.get_cookie("wins")
+                defe  = request.get_cookie("def" )
+                score = ((int(gold)/2)*(int(wins)/2)*(int(defe)/2))/[1,2][dead]
                 with conn.cursor() as cur:
-                    cur.execute("INSERT INTO submiss(gold, dead, score, userID) VALUES (" + str(gold) + ", " + str(dead) + "," + str(gold) + "," + str(user_cookie) + ");")
+                    cur.execute("INSERT INTO submiss(gold, wins, def, dead, score, userID) VALUES (" + str(gold) + "," + str(wins) + "," + str(defe) + "," + str(dead) + "," + str(score) + "," + str(user_cookie) + ");")
                     conn.commit()
                     updateData()
                 return template("extra.tpl")

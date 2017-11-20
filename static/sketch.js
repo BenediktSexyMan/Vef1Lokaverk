@@ -63,9 +63,12 @@ function setup() {
     p2 = createP(player.arm.torso.name + " " + player.arm.torso.def + " def");
     p3 = createP(player.arm.legs .name + " " + player.arm.legs .def + " def");
     p4 = createP("Gold 0" + " HP " + player.hp);
-    document.cookie = "gold=0";
-    document.cookie = "dead=0";
+    document.cookie = "gold=0"      ;
+    document.cookie = "dead=0"      ;
     document.cookie = "justSubbed=0";
+    document.cookie = "wins=0"      ;
+    document.cookie = "def=0"       ;
+
     if(true){
     butt1=createDiv    ("<p>Find Treasure   </p>"                                             );
     butt2=createDiv    ("<p>PRESS           </p>"                                             );
@@ -213,6 +216,7 @@ function draw() {
             var mess;
             if(progress>=100) {
                 turns[0]++;
+                document.cookie = "wins=" + turns[0].toString();
                 if(currentProgressRate > 10) {
                     currentProgressRate-=1;
                 }
@@ -244,6 +248,7 @@ function draw() {
                         sn = choice(names[3]);
                         player.arm.legs  = new Armor(fn+" "+sn, player.arm.legs .def + 2);
                     }
+                    document.cookie = "def=" + (player.arm.head.def + player.arm.torso.def + player.arm.legs.def).toString();
                     mess = fn + " " + sn;
                 }
             }

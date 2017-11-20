@@ -23,6 +23,8 @@
             <div v-for='x in top' style="display: flex; justify-content: space-around;">
                 <p>{{x.name}}</p>
                 <p>{{x.gold}}</p>
+                <p>{{x.def}}</p>
+                <p>{{x.wins}}</p>
                 <p>{{["Alive", "Dead"][Number(x.dead)]}}</p>
                 <p>{{x.score}}</p>
             </div>

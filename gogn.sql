@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS submiss
 (
 	ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     gold INT NOT NULL,
+    wins INT NOT NULL,
+    def INT NOT NULL,
     dead BOOL NOT NULL,
     score BIGINT NOT NULL,
     userID INT NOT NULL,
@@ -40,14 +42,6 @@ VALUES
     "I'M GAY"
 );
 
-INSERT INTO submiss(gold, dead, score, userID)
-VALUES
-(
-	2000,
-    false,
-    5200,
-    1
-);
 
 SELECT users.name, submiss.gold, submiss.dead, submiss.score
 FROM submiss
@@ -57,7 +51,6 @@ ORDER BY submiss.score DESC
 LIMIT 10;
 
 SELECT * FROM submiss;
-
 
 SELECT users.ID FROM users WHERE password='1234';
 
