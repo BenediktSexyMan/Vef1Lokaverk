@@ -22,6 +22,6 @@
 ### - Post requests
 ### - Get requests
 
-## Nánari upplýsingar um verkefnið sjálft getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/wiki)
+### Nánari upplýsingar um verkefnið sjálft getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/wiki)
 
-## Nánari upplýsingar um markmið, hvernig okkur gengur og hver gerði hvaða hluti getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/projects)
+### Nánari upplýsingar um markmið, hvernig okkur gengur og hver gerði hvaða hluti getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/projects)
