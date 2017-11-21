@@ -7,28 +7,53 @@
         <script src="./static/p5.dom.js" type="text/javascript"></script>
         <script src="./static/p5.sound.js" type="text/javascript"></script>
         <script src="https://unpkg.com/vue"></script>
-
+        <link href="./static/style.css" type="text/css" rel="stylesheet">
     </head>
-    <body onload="refInfo()">
-        <!--<div class="oneliner">
-            <h1 class="object">#1</h1>
-            <h2 class="object">David</h2>
-            <h2 class="object">4000G</h2>
-            <h2 class="object">22 armor</h2>
-            <h2 class="object">49230G Total</h2>
-            <h2 class="object">182 Treasures found</h2>
-            <hr>
-        </div>-->
-        <div  id="lister" style="display: none;">
-            <div v-for='x in top' style="display: flex; justify-content: space-around;">
-                <p>{{x.name}}</p>
-                <p>{{x.gold}}</p>
-                <p>{{x.def}}</p>
-                <p>{{x.wins}}</p>
-                <p>{{["Alive", "Dead"][Number(x.dead)]}}</p>
-                <p>{{x.score}}</p>
-            </div>
-        </div>
+    <body class="leadBody" style="margin: 1px;" onload="refInfo()">
+        <table id="lister">
+            <tbody>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        gold
+                    </th>
+                    <th>
+                        def
+                    </th>
+                    <th>
+                        wins
+                    </th>
+                    <th>
+                        State
+                    </th>
+                    <th>
+                        Score
+                    </th>
+                </tr>
+                <tr v-for='x in top'>
+                    <td>
+                        {{x.name}}
+                    </td>
+                    <td>
+                        {{x.gold}}
+                    </td>
+                    <td>
+                        {{x.def}}
+                    </td>
+                    <td>
+                        {{x.wins}}
+                    </td>
+                    <td>
+                        {{["Alive", "Dead"][Number(x.dead)]}}
+                    </td>
+                    <td>
+                        {{x.score}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <script src="./static/leaderboard.js"></script>
     </body>
 </html>

@@ -29,6 +29,7 @@ function refInfo() {
 }
 
 function setup() {
+    createCanvas(0,0);
     setInterval(refInfo, 15000);
 }
 

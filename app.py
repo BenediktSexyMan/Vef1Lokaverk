@@ -151,7 +151,8 @@ def game2():
                 dead  = request.get_cookie("dead")
                 wins  = request.get_cookie("wins")
                 defe  = request.get_cookie("def" )
-                score = ((int(gold)/2)*(int(wins)/2)*(int(defe)/2))/[1,2][dead]
+                score = ((int(gold)/2)*(int(wins)/2)*[int(defe)/2,1][int(defe)==0])/[1,2][int(dead)]
+
                 with conn.cursor() as cur:
                     cur.execute("INSERT INTO submiss(gold, wins, def, dead, score, userID) VALUES (" + str(gold) + "," + str(wins) + "," + str(defe) + "," + str(dead) + "," + str(score) + "," + str(user_cookie) + ");")
                     conn.commit()

@@ -62,11 +62,11 @@ html {
     html body .userInfo {
       width: 100%;
       height: 25%;
-      background-color: green;
+      background-color: #ff7b38;
       margin: 0;
       text-align: center; }
     html body .navBar {
-      background-color: yellow;
+      background-color: #387bff;
       margin: 0;
       width: 100%;
       height: 15%;
@@ -79,7 +79,7 @@ html {
     html body .scoreboard {
       width: 100%;
       height: 85%;
-      background-color: blue;
+      background-color: #7bff38;
       margin: 0;
       border: none !important; }
 
@@ -141,3 +141,28 @@ html {
       .unlogBody .wrapper .signup input {
         height: 2em;
         margin-bottom: 0.2em; }
+
+.leadBody {
+  margin: 0px;
+  overflow: hidden;
+  height: 100%; }
+  .leadBody #lister {
+    min-height: 100%;
+    display: none;
+    width: 100%;
+    border-collapse: collapse; }
+    .leadBody #lister tbody {
+      min-height: 100%;
+      display: table;
+      width: 100%; }
+      .leadBody #lister tbody th, .leadBody #lister tbody td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+        text-align: left; }
+      .leadBody #lister tbody tr {
+        width: 100%; }
+      .leadBody #lister tbody tr:nth-child(even) {
+        background-color: #7bff38; }
+      .leadBody #lister tbody tr:nth-child(odd) {
+        background-color: #56b327; }
