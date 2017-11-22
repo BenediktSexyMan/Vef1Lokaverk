@@ -108,8 +108,8 @@ html {
 
 .leadBody {
     margin: 0px;
-    overflow: hidden;
-    height: 100%;
+    height: calc(100% - 2px);
+    width : calc(100% - 1px);
     #lister {
         min-height: 100%;
         display: none;

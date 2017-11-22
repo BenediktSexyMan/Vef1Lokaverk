@@ -3,16 +3,121 @@ import sys
 import json
 from bottle import *
 from pymysql import *
+
+
 conn = connect(host='tsuts.tskoli.is', user='1311992289', passwd='mypassword', db='1311992289_vef1lokaverk')
+
+
+users  = {"users"  : {}}
+events = {"achievs": [], "submiss": []}
+
+
+class User:
+    def __init__(self, ID, name, profile="./static/NonePro.jpg", descr=""):
+        self.__ID    = ID
+        self.__name  = name
+        self.__pro   = "./static/NonePro.jpg" if profile is None else profile
+        self.__descr = ""                     if descr   is None else descr
+    def ID(self):
+        return self.__ID
+    def name(self, new_name=None):
+        self.__name = self.__name if new_name is None else new_name
+        return self.__name
+    def profile(self, new_profile=None):
+        self.__pro = self.__pro if new_profile is None else new_profile
+    def descr(self, new_descr=None):
+        self.__descr = self.__descr if new_descr is None else new_descr
+    __repr__ = __str__ = lambda self: "User " + self.__name
+
+
+class UserEvent:
+    def __init__(self, ID, userID):
+        self.__user = userID
+    def user(self):
+        return self.__user
+
+class Achieve(UserEvent):
+    def __init__(self, ID, userID, name, descr=None):
+        UserEvent.__init__(self, ID, userID)
+        self.__name  = name
+        self.__descr = "" if descr is None else descr
+    def name(self):
+        return self.__name
+    def descr(self):
+        return self.__name
+    __repr__ = __str__ = lambda self: "Achievement " + self.__name
+
+
+class Submission(UserEvent):
+    def __init__(self, ID, userID, gold, wins, defe, dead, score):
+        UserEvent.__init__(self, ID, userID)
+        self.__gold  = gold
+        self.__wins  = wins
+        self.__defe  = defe
+        self.__dead  = dead
+        self.__score = score
+    def gold(self):
+        return self.__gold
+    def wins(self):
+        return self.__wins
+    def defe(self):
+        return self.__defe
+    def dead(self):
+        return self.__dead
+    def score(self):
+        return self.__score
+    __repr__ = __str__ = lambda self: "Submission " + users["users"][self.user()].name() + " " + str(self.__score)
+
 
 def rows(cur):
     return [x for x in cur]
 
-data = None
+
+def updateTop(data):
+    print(data)
+    with open("./static/top.json", "w") as f:
+        f.truncate()
+        json.dump(data, f)
+
+
+with conn.cursor() as cur:
+    cur.execute("SELECT ID, name, PPicFile, descr FROM users")
+    for x in cur:
+        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]))
+    cur.execute("SELECT * FROM submiss ORDER BY ID ASC")
+    for x in cur:
+        events["submiss"].append(
+            Submission(
+                int(x[0]),
+                int(x[6]),
+                int(x[1]),
+                int(x[2]),
+                int(x[3]),
+                int(x[4]),
+                int(x[5])
+            )
+        )
+    cur.execute("SELECT * FROM achievs ORDER BY ID ASC")
+    for x in cur:
+        events["achievs"].append(
+            Submission(
+                int(x[0]),
+                int(x[6]),
+                int(x[1]),
+                int(x[2]),
+                int(x[3]),
+                int(x[4]),
+                int(x[5])
+            )
+        )
+print(users)
+print(events)
+
+
 def updateData():
     with conn.cursor() as cur:
         data = {"top": []}
-        cur.execute("SELECT users.name, submiss.gold, submiss.wins, submiss.def, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.score DESC LIMIT 10;")
+        cur.execute("SELECT users.name, submiss.gold, submiss.wins, submiss.def, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.ID DESC")
         ans = rows(cur)
         for x in ans:
             data["top"].append(
@@ -25,58 +130,17 @@ def updateData():
                     "score" : str(x[5])
                 }
             )
-        print(data)
-        with open("./static/top.json", "w") as f:
-            f.truncate()
-            json.dump(data, f)
+    updateTop(data)
+
+
 updateData()
 
-class User:
-    def __init__(self, name, profile="./static/NonePro.jpg", descr=""):
-        self.__name  = name
-        self.__pro   = profile
-        self.__descr = descr
-    def name(self, new_name=None):
-        self.__name = self.__name if new_name is None else new_name
-        return self.__name
-    def profile(self, new_profile=None):
-        self.__pro = self.__pro if new_profile is None else new_profile
-    def descr(self, new_descr=None):
-        self.__descr = self.__descr if new_descr is None else new_descr
-    __repr__ = __str__ = lambda self: "User " + self.__name
-
-class UserEvent:
-    def __init__(self, userID):
-        self.__user = userID
-    def user(self):
-        return self.__user
-
-class Achieve(UserEvent):
-    def __init__(self, userID, name, descr=""):
-        UserEvent.__init__(self, userID)
-        self.__name  = name
-        self.__descr = descr
-    def name(self):
-        return self.__name
-    def descr(self):
-        return self.__name
-
-class Submission(UserEvent):
-    def __init__(self, userID, gold, dead):
-        UserEvent.__init__(self, userID)
-        self.__gold = gold
-        self.__dead = dead
-    def gold(self):
-        return self.__gold
-    def dead(self):
-        return self.__dead
-
-users = dict()
 
 
 @route("/static/<filename>")
 def static_skrar(filename):
     return static_file(filename, root="./static")
+
 
 @route("/")
 def home():
@@ -90,6 +154,7 @@ def home():
                 redirect("/process")
     else:
         return template("unlogged.tpl", logmsg=None, sigmsg=None)
+
 
 @route("/", method="POST")
 def home2():
@@ -126,6 +191,7 @@ def home2():
     else:
         redirect("/")
 
+
 @route("/game")
 def game():
     user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
@@ -138,6 +204,7 @@ def game():
                 redirect("/process")
     else:
         redirect("/")
+
 
 @route("/game", method="POST")
 def game2():
@@ -163,9 +230,11 @@ def game2():
     else:
         redirect("/")
 
+
 @route("/user")
 def user():
     pass
+
 
 @route("/leaderboards")
 def leader():
@@ -181,6 +250,7 @@ def leader():
     else:
         redirect("/")
 
+
 @route("/process")
 def process():
     try:
@@ -188,6 +258,7 @@ def process():
     finally:
         pass
     redirect("/")
+
 
 if os.environ.get("IS_HEROKU") is not None:
     run(host="0.0.0.0", port=os.environ.get("PORT"))
