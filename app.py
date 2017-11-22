@@ -1,5 +1,6 @@
 import os
 import sys
+import random
 import json
 from bottle import *
 from pymysql import *
@@ -9,11 +10,12 @@ conn = connect(host='tsuts.tskoli.is', user='1311992289', passwd='mypassword', d
 
 
 class User:
-    def __init__(self, ID, name, profile="./static/NonePro.jpg", descr=""):
+    def __init__(self, ID, name, profile=None, descr=None, chieves=None):
         self.__ID      = ID
         self.__name    = name
         self.__pro     = "./static/NonePro.jpg" if profile is None else profile
         self.__descr   = ""                     if descr   is None else descr
+        self.__chieves = []                     if chieves  is None else chieves
     def ID(self):
         return self.__ID
     def name(self, new_name=None):
@@ -23,18 +25,21 @@ class User:
         self.__pro = self.__pro if new_profile is None else new_profile
     def descr(self, new_descr=None):
         self.__descr = self.__descr if new_descr is None else new_descr
+    def achievements(self, new_chieves=None):
+        self.__chieves = self.__chieves if new_chieves is None else new_chieves
+        return self.__chieves
     __repr__ = __str__ = lambda self: "User " + self.__name
 
 
 class UserEvent:
-    def __init__(self, ID, userID):
-        self.__user = userID
-    def user(self):
-        return self.__user
+    def __init__(self, ID):
+        self.__ID = ID
+    def ID(self):
+        return self.__ID
 
 class Achieve(UserEvent):
     def __init__(self, ID, userID, name, descr=None):
-        UserEvent.__init__(self, ID, userID)
+        UserEvent.__init__(self, ID)
         self.__name  = name
         self.__descr = "" if descr is None else descr
     def name(self):
@@ -46,12 +51,13 @@ class Achieve(UserEvent):
 
 class Submission(UserEvent):
     def __init__(self, ID, userID, gold, wins, defe, dead, score):
-        UserEvent.__init__(self, ID, userID)
+        UserEvent.__init__(self, ID)
         self.__gold  = gold
         self.__wins  = wins
         self.__defe  = defe
         self.__dead  = dead
         self.__score = score
+        self.__user  = userID
     def gold(self):
         return self.__gold
     def wins(self):
@@ -62,20 +68,21 @@ class Submission(UserEvent):
         return self.__dead
     def score(self):
         return self.__score
+    def user(self):
+        return self.__user
     __repr__ = __str__ = lambda self: "Submission " + users["users"][self.user()].name() + " " + str(self.__score)
 
-
 users  = {"users"  : {}}
+data   = {"top"    : []}
 events = {"achievs": [], "submiss": []}
-with conn.cursor() as cur:
-    pass
+
 
 
 def rows(cur):
     return [x for x in cur]
 
 
-def updateTop(data):
+def updateTop():
     print(data)
     with open("./static/top.json", "w") as f:
         f.truncate()
@@ -99,40 +106,24 @@ with conn.cursor() as cur:
                 int(x[5])
             )
         )
-    cur.execute("SELECT * FROM achievs ORDER BY ID ASC")
-    for x in cur:
-        events["achievs"].append(
-            Achieve(
-                int(x[0]),
-                int(x[3]),
-                int(x[1]),
-                int(x[2])
-            )
+with conn.cursor() as cur:
+    cur.execute("SELECT users.name, submiss.gold, submiss.wins, submiss.def, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.ID DESC")
+    ans = rows(cur)
+    for x in ans:
+        data["top"].append(
+            {
+                "name"  : str(x[0]),
+                "gold"  : str(x[1]),
+                "wins"  : str(x[2]),
+                "def"   : str(x[3]),
+                "dead"  : str(x[4]),
+                "score" : str(x[5])
+            }
         )
+    updateTop()
 print(users)
 print(events)
 
-
-def updateData():
-    with conn.cursor() as cur:
-        data = {"top": []}
-        cur.execute("SELECT users.name, submiss.gold, submiss.wins, submiss.def, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.ID DESC")
-        ans = rows(cur)
-        for x in ans:
-            data["top"].append(
-                {
-                    "name"  : str(x[0]),
-                    "gold"  : str(x[1]),
-                    "wins"  : str(x[2]),
-                    "def"   : str(x[3]),
-                    "dead"  : str(x[4]),
-                    "score" : str(x[5])
-                }
-            )
-    updateTop(data)
-
-
-updateData()
 
 
 
@@ -222,7 +213,7 @@ def game2():
                 with conn.cursor() as cur:
                     cur.execute("INSERT INTO submiss(gold, wins, def, dead, score, userID) VALUES (" + str(gold) + "," + str(wins) + "," + str(defe) + "," + str(dead) + "," + str(score) + "," + str(user_cookie) + ");")
                     conn.commit()
-                    updateData()
+                    updateTop()
                 return template("extra.tpl")
             else:
                 redirect("/process")
