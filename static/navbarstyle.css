@@ -1,0 +1,29 @@
+body {
+    background-color: orange;
+    margin: 0px !important;
+    height: 100%;
+}
+.box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin: 0px !important;
+    height: 100%;
+}
+
+.wr {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    text-align: center;
+    margin: 0px !important;
+    width:33%;
+    height: 50%;
+}
+.a {
+    margin: 0px !important;
+}
+
+html {
+    height: 100%;
+}

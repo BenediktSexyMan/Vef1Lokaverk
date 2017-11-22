@@ -19,6 +19,7 @@
         <meta name="msapplication-TileImage" content="./static/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
         <link href="./static/style.css" type="text/css" rel="stylesheet">
+        <link href="./static/navbarstyle.css" type="text/css" rel="stylesheet">
     </head>
     <body>
         <div class="user-and-game">
@@ -26,7 +27,9 @@
             <iframe src="game" class="gameBox"></iframe>
         </div>
         <div class="nav-and-score">
-            <div class="navBar"></div>
+            <div class="navBar">
+                % include ('navbar.tpl')
+            </div>
             <iframe class="scoreboard" src="leaderboards"></iframe>
         </div>
     </body>
