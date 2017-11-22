@@ -8,16 +8,12 @@ from pymysql import *
 conn = connect(host='tsuts.tskoli.is', user='1311992289', passwd='mypassword', db='1311992289_vef1lokaverk')
 
 
-users  = {"users"  : {}}
-events = {"achievs": [], "submiss": []}
-
-
 class User:
     def __init__(self, ID, name, profile="./static/NonePro.jpg", descr=""):
-        self.__ID    = ID
-        self.__name  = name
-        self.__pro   = "./static/NonePro.jpg" if profile is None else profile
-        self.__descr = ""                     if descr   is None else descr
+        self.__ID      = ID
+        self.__name    = name
+        self.__pro     = "./static/NonePro.jpg" if profile is None else profile
+        self.__descr   = ""                     if descr   is None else descr
     def ID(self):
         return self.__ID
     def name(self, new_name=None):
@@ -69,6 +65,12 @@ class Submission(UserEvent):
     __repr__ = __str__ = lambda self: "Submission " + users["users"][self.user()].name() + " " + str(self.__score)
 
 
+users  = {"users"  : {}}
+events = {"achievs": [], "submiss": []}
+with conn.cursor() as cur:
+    pass
+
+
 def rows(cur):
     return [x for x in cur]
 
@@ -100,14 +102,11 @@ with conn.cursor() as cur:
     cur.execute("SELECT * FROM achievs ORDER BY ID ASC")
     for x in cur:
         events["achievs"].append(
-            Submission(
+            Achieve(
                 int(x[0]),
-                int(x[6]),
-                int(x[1]),
-                int(x[2]),
                 int(x[3]),
-                int(x[4]),
-                int(x[5])
+                int(x[1]),
+                int(x[2])
             )
         )
 print(users)
