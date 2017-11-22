@@ -20,10 +20,13 @@
         <meta name="theme-color" content="#ffffff">
         <link href="./static/style.css" type="text/css" rel="stylesheet">
         <link href="./static/navbarstyle.css" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="./static/profstyle.css">
     </head>
     <body>
         <div class="user-and-game">
-            <div class="userInfo"><a href="/process">Sign Out</a></div>
+            <div class="userInfo">
+                % include ('mainuser.tpl')
+            </div>
             <iframe src="game" class="gameBox"></iframe>
         </div>
         <div class="nav-and-score">
