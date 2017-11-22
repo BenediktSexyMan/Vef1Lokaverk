@@ -22,7 +22,10 @@
     </head>
     <body>
         <div class="user-and-game">
-            <div class="userInfo"><a href="/process">Sign Out</a></div>
+            <div class="userInfo">
+                <a href="/process">Sign Out</a>
+                {{ch}}
+            </div>
             <iframe src="game" class="gameBox"></iframe>
         </div>
         <div class="nav-and-score">

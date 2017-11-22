@@ -30,6 +30,7 @@ function refInfo() {
 
 function setup() {
     createCanvas(0,0);
+    //setTimeout(window.top.location.reload(), 3000);
     setInterval(refInfo, 15000);
 }
 
