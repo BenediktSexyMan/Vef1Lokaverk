@@ -316,8 +316,6 @@ def userpage(username):
         if int(user_cookie) in users["users"]:
             if username in [x.name() for x in users["users"].values()]:
                 return template("userpage.tpl")
-                #with open("./views/userpage.tpl") as f:
-                    #return f.read()
             else:
                 return template("404.tpl")
         else:
@@ -325,6 +323,17 @@ def userpage(username):
     else:
         redirect("/")
 
+@route("/u")
+def userpageredirect():
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            username=users["users"][int(user_cookie)].name()
+            redirect("/u/"+username)
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
 
 @route("/leaderboards")
 def leader():
