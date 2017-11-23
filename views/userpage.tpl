@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="./static/editstyle.css" type="text/css">
+        <link rel="stylesheet" href="../static/editstyle.css">
     </head>
     <body>
         <div class="bgcolor midbox">
             <center></center><div class="profbox">
-                <img class="c bgcolor imgsize" src="cosby.jpg">
+                <img class="c bgcolor imgsize" src="../static/cosby.jpg">
                 <div>
                     <h1 class="nametext">Bill Cosby</h1>
                     <h3>------------------------------------------------------------</h3>
