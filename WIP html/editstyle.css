@@ -47,3 +47,21 @@ hr {
 .nametext {
     margin-top: 2% !important;
 }
+
+.statbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.childchild {
+    display: flex;
+    flex-direction: row;
+}
+
+.bottomspace {
+    margin-bottom: 2%;
+}
