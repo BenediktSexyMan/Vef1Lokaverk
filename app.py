@@ -315,8 +315,9 @@ def userpage(username):
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
             if username in [x.name() for x in users["users"].values()]:
-                with open("./views/mainuser.tpl") as f:
-                    return f.read()
+                return template("userpage.tpl")
+                #with open("./views/userpage.tpl") as f:
+                    #return f.read()
             else:
                 return template("404.tpl")
         else:

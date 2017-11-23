@@ -1,0 +1,49 @@
+html {
+    height: 100%;
+    background-color: rgba(0, 137, 255, 0.75)
+}
+
+body {
+    height: 100% !important;
+    max-width: 60%;
+    margin: auto;
+}
+
+.imgsize {
+    width: 175px;
+    height: 175px;
+    margin: 2%;
+}
+
+.profbox {
+    display: flex;
+    max-width: 572px;
+}
+
+h3 {
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.bgcolor {
+    background-color: rgba(0, 0, 255, 0.76);
+}
+
+.midbox {
+    height: 100%;
+}
+
+hr {
+    margin: 0;
+}
+
+.center {
+    text-align: center;
+}
+
+.nametext {
+    margin-top: 2% !important;
+}
