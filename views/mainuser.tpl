@@ -10,7 +10,7 @@
         <link href="./static/style.css" type="text/css" rel="stylesheet">
     </head>
     <body class="userBody" onload="refInfo()">
-        <!--<div class="profile">
+        <div class="profile">
              <img class="c bgcolor imgsize" src="cosby.jpg">
              <div class="profinfo c bgcolor">
                  <h1 class="uname">Username</h1>
@@ -19,7 +19,7 @@
 
                  </h3>
              </div>
-        </div>-->
+        </div>
         <div id="userLister" style="display: none;">
             <div v-for="x in users">
                 {{x}}
