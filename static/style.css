@@ -64,7 +64,8 @@ html {
       height: 25%;
       background-color: #ff7b38;
       margin: 0;
-      text-align: center; }
+      text-align: center;
+      border: none; }
     html body .navBar {
       background-color: #387bff;
       margin: 0;

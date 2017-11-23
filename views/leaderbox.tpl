@@ -9,7 +9,7 @@
         <script src="https://unpkg.com/vue"></script>
         <link href="./static/style.css" type="text/css" rel="stylesheet">
     </head>
-    <body class="leadBody" style="margin: 1px;" onload="refInfo()">
+    <body class="leadBody" onload="refInfo()">
         <table id="lister">
             <tbody>
                 <tr>

@@ -33,7 +33,7 @@ class User:
         return self.__chieves
     def addAchievement(self, new_chieve):
         self.__chieves.append(new_chieve)
-    __repr__ = __str__ = lambda self: "User " + self.__name + " " + str(self.__chieves)
+    __repr__ = __str__ = lambda self: "User " + self.__name
 
 
 class UserEvent:
@@ -53,7 +53,7 @@ class Achieve(UserEvent):
     def name(self):
         return self.__name
     def descr(self):
-        return self.__name
+        return self.__descr
     __repr__ = __str__ = lambda self: "Achievement " + self.__name
 
 
@@ -81,27 +81,27 @@ class Submission(UserEvent):
     __repr__ = __str__ = lambda self: "Submission " + users["users"][self.user()].name() + " " + str(self.__score)
 
 
-events = {"achievs": [
-    Achieve(
-        1,
+events = {"achievs": {
+    "ONE": Achieve(
+        "ONE",
         "Registered Submitter",
         "Hey, you submitted a score!... Coooooool!",
         lambda self, user: len(list(filter(lambda x: x.user() == user, events["submiss"]))) > 0
     ),
-    Achieve(
-        2,
+    "TWO": Achieve(
+        "TWO",
         "You've Got Gold",
         "Check your inbox",
         lambda self, user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0
     ),
-    Achieve(
-        3,
+    "THREE": Achieve(
+        "THREE",
         "I made it mum",
         "You got a submission on the leaderboard!!!",
         lambda self, user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]))) > 0
     )
 
-], "submiss": []}
+}, "submiss": []}
 
 def rows(cur):
     return [x for x in cur]
@@ -125,11 +125,39 @@ def updateTop():
         json.dump(data, f)
 
 
+def updateUsers():
+    data = {"users": []}
+    for x in list(users["users"].values()):
+        data["users"].append({
+            "ID": x.ID(),
+            "name": x.name(),
+            "PPicFile": x.profile(),
+            "descr": x.descr(),
+            "chieves": [[y.name(), y.descr()] for y in x.achievements()]
+        })
+    print(data)
+    with open("./static/users.json", "w") as f:
+        f.truncate()
+        json.dump(data, f)
+
+
 with conn.cursor() as cur:
     cur.execute("SELECT ID, name, PPicFile, descr, chieves FROM users")
     for x in cur:
-        print([x[4]])
-        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), ([events["achievs"][int(y)] for y in x[4].split(" ")] if x[4] != "" else None))
+        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), (list(filter(lambda x: x is not None, [events["achievs"][y] if y != "" else None for y in x[4].split(" ")])) if x[4] != "" else None))
+    data = {"users": []}
+    for x in list(users["users"].values()):
+        data["users"].append({
+            "ID"      : x.ID(),
+            "name"    : x.name(),
+            "PPicFile": x.profile(),
+            "descr"   : x.descr(),
+            "chieves" : [[y.name(), y.descr()] for y in x.achievements()]
+        })
+    print(data)
+    with open("./static/users.json", "w") as f:
+        f.truncate()
+        json.dump(data, f)
     cur.execute("SELECT * FROM submiss ORDER BY ID ASC")
     for x in cur:
         events["submiss"].append(
@@ -143,24 +171,24 @@ with conn.cursor() as cur:
                 int(x[5])
             )
         )
-with conn.cursor() as cur:
     data = {"top": []}
     cur.execute("SELECT users.name, submiss.gold, submiss.wins, submiss.def, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.score DESC LIMIT 10")
     ans = rows(cur)
     for x in ans:
         data["top"].append(
             {
-                "name"  : str(x[0]),
-                "gold"  : str(x[1]),
-                "wins"  : str(x[2]),
-                "def"   : str(x[3]),
-                "dead"  : str(x[4]),
-                "score" : str(x[5])
+                "name": str(x[0]),
+                "gold": str(x[1]),
+                "wins": str(x[2]),
+                "def": str(x[3]),
+                "dead": str(x[4]),
+                "score": str(x[5])
             }
         )
     with open("./static/top.json", "w") as f:
         f.truncate()
         json.dump(data, f)
+
 print(users)
 print(events)
 
@@ -172,14 +200,12 @@ def static_skrar(filename):
 
 @route("/")
 def home():
-    user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
-        with conn.cursor() as cur:
-            cur.execute("SELECT ID FROM users;")
-            if int(user_cookie) in [x[0] for x in rows(cur)]:
-                return template("Main.tpl", ch=users["users"][int(user_cookie)].achievements())
-            else:
-                redirect("/process")
+        if int(user_cookie) in users["users"]:
+            return template("Main.tpl", ch=users["users"][int(user_cookie)].achievements())
+        else:
+            redirect("/process")
     else:
         return template("unlogged.tpl", logmsg=None, sigmsg=None)
 
@@ -195,7 +221,7 @@ def home2():
                 cur.execute("SELECT users.ID FROM users WHERE password='" + request.forms.get("password") + "';")
                 ans = rows(cur)
                 if len(ans):
-                    response.set_cookie("user", ans[0][0], secret="SuckMyTCP/IPv4")
+                    response.set_cookie("user", str(ans[0][0]))  # , secret="SuckMyTCP/IPv4"
                     redirect("/")
                 else:
                     return template("unlogged.tpl", logmsg="Password is incorrect", sigmsg=None)
@@ -214,7 +240,8 @@ def home2():
                     cur.execute("INSERT INTO users(name, password) VALUES ('" + name + "', '" + passw + "');")
                     conn.commit()
                 users["users"][len(users["users"]) + 1] = User(len(users["users"]) + 1, name)
-                response.set_cookie("user", len(users["users"]), secret="SuckMyTCP/IPv4")
+                updateUsers()
+                response.set_cookie("user", len(users["users"]))  # , secret="SuckMyTCP/IPv4"
                 redirect("/")
     else:
         redirect("/")
@@ -222,74 +249,76 @@ def home2():
 
 @route("/game")
 def game():
-    user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
-        with conn.cursor() as cur:
-            cur.execute("SELECT ID FROM users;")
-            if int(user_cookie) in [x[0] for x in rows(cur)]:
-                return template("extra.tpl")
-            else:
-                redirect("/process")
+        if int(user_cookie) in users["users"]:
+            return template("extra.tpl")
+        else:
+            redirect("/process")
     else:
         redirect("/")
 
 
 @route("/game", method="POST")
 def game2():
-    user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
-        with conn.cursor() as cur:
-            cur.execute("SELECT ID FROM users;")
-            if int(user_cookie) in [x[0] for x in rows(cur)]:
-                print("sibmitting")
-                gold  = request.get_cookie("gold")
-                dead  = request.get_cookie("dead")
-                wins  = request.get_cookie("wins")
-                defe  = request.get_cookie("def" )
-                score = int(((int(gold)/2)*(int(wins)/2)*[int(defe)/2,1][int(defe)==0])/[1,2][int(dead)])
-                with conn.cursor() as cur:
-                    cur.execute("INSERT INTO submiss(gold, wins, def, dead, score, userID) VALUES (" + str(gold) + "," + str(wins) + "," + str(defe) + "," + str(dead) + "," + str(score) + "," + str(user_cookie) + ");")
-                    conn.commit()
-                    events["submiss"].append(Submission(
-                        len(events["submiss"]) + 1,
-                        int(user_cookie),
-                        int(gold),
-                        int(wins),
-                        int(defe),
-                        int(dead),
-                        int(score)
-                    ))
-                    updateTop()
-                    for x in events["achievs"]:
-                        print(x, x.func(user_cookie))
-                        if x.func(user_cookie) and x not in users["users"][int(user_cookie)].achievements():
-                            users["users"][int(user_cookie)].addAchievement(x)
-                            print("UPDATE users SET chieves=chieves+CONVERT (VARCHAR, 8000, '" + str(x.ID()) + " " + "') WHERE ID=" + str(user_cookie) + ";")
-                            cur.execute("UPDATE users SET chieves=chieves+CONVERT (VARCHAR, 8000, '" + str(x.ID()) + " " + "') WHERE ID=" + str(user_cookie) + ";")
-                            conn.commit()
-                return template("extra.tpl")
-            else:
-                redirect("/process")
+        if int(user_cookie) in users["users"]:
+            print("sibmitting")
+            gold  = request.get_cookie("gold")
+            dead  = request.get_cookie("dead")
+            wins  = request.get_cookie("wins")
+            defe  = request.get_cookie("def" )
+            score = int(((int(gold)/2)*(int(wins)/2)*[int(defe)/2,1][int(defe)==0])/[1,2][int(dead)])
+            with conn.cursor() as cur:
+                cur.execute("INSERT INTO submiss(gold, wins, def, dead, score, userID) VALUES (" + str(gold) + "," + str(wins) + "," + str(defe) + "," + str(dead) + "," + str(score) + "," + str(user_cookie) + ");")
+                conn.commit()
+                events["submiss"].append(Submission(
+                    len(events["submiss"]) + 1,
+                    int(user_cookie),
+                    int(gold),
+                    int(wins),
+                    int(defe),
+                    int(dead),
+                    int(score)
+                ))
+                updateTop()
+                for x in list(events["achievs"].values()):
+                    print(x, x.func(user_cookie))
+                    if x.func(user_cookie) and x not in users["users"][int(user_cookie)].achievements():
+                        users["users"][int(user_cookie)].addAchievement(x)
+                        cur.execute("UPDATE users SET chieves=CONCAT(chieves,\"" + x.ID() + " " + "\") WHERE ID=" + str(user_cookie) + ";")
+                        conn.commit()
+                updateUsers()
+            return template("extra.tpl")
+        else:
+            redirect("/process")
     else:
         redirect("/")
 
 
 @route("/user")
 def user():
-    pass
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            with open("./views/mainuser.tpl", "r") as f:
+                return f.read()
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
 
 
 @route("/leaderboards")
 def leader():
-    user_cookie = request.get_cookie("user", secret="SuckMyTCP/IPv4")
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
-        with conn.cursor() as cur:
-            cur.execute("SELECT ID FROM users;")
-            if int(user_cookie) in [x[0] for x in rows(cur)]:
-                with open("./views/leaderbox.tpl", "r") as f:
-                    return f.read()
-            else:
-                redirect("/process")
+        if int(user_cookie) in users["users"]:
+            with open("./views/leaderbox.tpl", "r") as f:
+                return f.read()
+        else:
+            redirect("/process")
     else:
         redirect("/")
 

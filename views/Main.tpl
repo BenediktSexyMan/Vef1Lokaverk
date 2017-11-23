@@ -24,9 +24,7 @@
     </head>
     <body>
         <div class="user-and-game">
-            <div class="userInfo">
-                % include ('mainuser.tpl')
-            </div>
+            <iframe src="user" class="userInfo"></iframe>
             <iframe src="game" class="gameBox"></iframe>
         </div>
         <div class="nav-and-score">
