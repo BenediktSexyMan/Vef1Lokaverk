@@ -20,11 +20,6 @@
                 </div>
             </div>
         </div>
-        <div id="userLister" style="display: none;">
-            <div v-for="x in users">
-                {{x}}
-            </div>
-        </div>
         <script src="./static/user.js"></script>
     </body>
 </html>
