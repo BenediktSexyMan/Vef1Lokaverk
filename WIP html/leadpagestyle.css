@@ -1,0 +1,74 @@
+html {
+    height: 100%;
+    padding: 0;
+    background-color: rgba(112, 252, 10, 0.69);
+}
+
+body {
+    margin: auto;
+    max-width: 60%;
+    height: 90%;
+    background-color: rgba(15, 240, 15, 0.9)
+}
+
+footer {
+    margin: auto;
+    max-width: 60%;
+    height: 10%;
+    background-color: green;
+}
+
+.title {
+    margin: 0;
+    padding-top: 5%;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 4%;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+}
+
+h2 {
+    border: 1px solid black;
+    margin: 0;
+    padding-left: 1%;
+}
+
+h3 {
+    border: 0.5px solid black;
+    margin: 0;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+}
+
+.size1 {
+    width: 20%;
+}
+
+.size2 {
+    width: 20%;
+}
+
+.size3 {
+    width: 20%;
+}
+
+.size4 {
+    width: 20%;
+}
+
+.size5 {
+    width: 20%;
+}
+
+.size6 {
+    width: 20%;
+}
+
+.center {
+    justify-content:space-between;
+}
