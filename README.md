@@ -5,8 +5,8 @@
 
 ## Main vefsíðann
 ### Á forsíðunni eru fjórar iframed síður fyrir leikinn, scoreboardið, navbar og user info.
-### - Það verður hægt að sjá log með öllu sem þú hefur gert í leiknum og öllu sem aðrir hafa gert.
-### - Það verður dynamic routing kerfi fyrir users.
+### - Það er hægt að sjá log með öllu sem þú hefur gert í leiknum og öllu sem aðrir hafa gert.
+### - Það er dynamic routing kerfi fyrir users.
 ### - Það verður sér leaderboard síða, profile editor achievement kerfi og fleira.
 
 ## Vefforritunar notkun
@@ -21,6 +21,7 @@
 ### - Dynamic Routing
 ### - Post requests
 ### - Get requests
+### - Redirecting
 
 ### Nánari upplýsingar um verkefnið sjálft getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/wiki)
 
