@@ -230,7 +230,7 @@ def home2():
                 else:
                     return template("unlogged.tpl", logmsg="Password is incorrect", sigmsg=None)
             else:
-                return template("unlogged", logmsg="User does not exist", sigmsg=None)
+                return template("unlogged", logmsg="User does not exist", sigmsg=None) #
     elif lvs == "signup":
         with conn.cursor() as cur:
             name  = request.forms.get("username")
