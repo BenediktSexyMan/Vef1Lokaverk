@@ -13,12 +13,12 @@ users  = {"users"  : {}}
 
 
 class User:
-    def __init__(self, ID, name, profile=None, descr=None, chieves=None):
+    def __init__(self, ID, name, profile="/static/android-icon-192x192.png", descr=None, chieves=None):
         self.__ID      = ID
         self.__name    = name
-        self.__pro     = "./static/NonePro.jpg" if profile is None else profile
-        self.__descr   = ""                     if descr   is None else descr
-        self.__chieves = []                     if chieves is None else chieves
+        self.__pro     = profile
+        self.__descr   = "" if descr   is None else descr
+        self.__chieves = [] if chieves is None else chieves
     def ID(self):
         return self.__ID
     def name(self, new_name=None):
@@ -26,14 +26,16 @@ class User:
         return self.__name
     def profile(self, new_profile=None):
         self.__pro = self.__pro if new_profile is None else new_profile
+        return self.__pro
     def descr(self, new_descr=None):
         self.__descr = self.__descr if new_descr is None else new_descr
+        return self.__descr
     def achievements(self, new_chieves=None):
         self.__chieves = self.__chieves if new_chieves is None else new_chieves
         return self.__chieves
     def addAchievement(self, new_chieve):
         self.__chieves.append(new_chieve)
-    __repr__ = __str__ = lambda self: "User " + self.__name
+    __repr__ = __str__ = lambda self: "User " + self.__name + " " + str(self.__chieves)
 
 
 class UserEvent:
@@ -43,13 +45,14 @@ class UserEvent:
         return self.__ID
 
 class Achieve(UserEvent):
-    def __init__(self, ID, name: object, descr = None, funct = None):
+    def __init__(self, ID, name, descr = None, funct = None):
         UserEvent.__init__(self, ID)
         self.__name  = name
         self.__descr = "" if descr is None else descr
         self.__func = funct
     def func(self, user):
-        return self.__func(self, user)
+        print(self.__func(user))
+        return self.__func(user)
     def name(self):
         return self.__name
     def descr(self):
@@ -86,20 +89,33 @@ events = {"achievs": {
         "ONE",
         "Registered Submitter",
         "Hey, you submitted a score!... Coooooool!",
-        lambda self, user: len(list(filter(lambda x: x.user() == user, events["submiss"]))) > 0
+        lambda user: len(list(filter(lambda x: x.user() == user, events["submiss"]))) > 0
     ),
     "TWO": Achieve(
         "TWO",
         "You've Got Gold",
         "Check your inbox",
-        lambda self, user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0
     ),
     "THREE": Achieve(
         "THREE",
         "I made it mum",
         "You got a submission on the leaderboard!!!",
-        lambda self, user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]))) > 0
+        lambda user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]))) > 0
+    ),
+    "FOUR": Achieve(
+        "FOUR",
+        "Top Three",
+        "Hope you enjoyed the Paralympics :)",
+        lambda user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 3)]))) > 0
+    ),
+    "Five": Achieve(
+        "Five",
+        "#1",
+        "#1 Baby!",
+        lambda user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 1)]))) > 0
     )
+
 
 }, "submiss": []}
 
@@ -144,7 +160,7 @@ def updateUsers():
 with conn.cursor() as cur:
     cur.execute("SELECT ID, name, PPicFile, descr, chieves FROM users")
     for x in cur:
-        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), (list(filter(lambda x: x is not None, [events["achievs"][y] if y != "" else None for y in x[4].split(" ")])) if x[4] != "" else None))
+        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), (list(filter(lambda x: x is not None, [events["achievs"][y] if y != "" and y is not None else None for y in x[4].split(" ")])) if x[4] != "" else None))
     data = {"users": []}
     for x in list(users["users"].values()):
         data["users"].append({
@@ -241,7 +257,7 @@ def home2():
                     conn.commit()
                 users["users"][len(users["users"]) + 1] = User(len(users["users"]) + 1, name)
                 updateUsers()
-                response.set_cookie("user", len(users["users"]))  # , secret="SuckMyTCP/IPv4"
+                response.set_cookie("user", str(len(users["users"])))  # , secret="SuckMyTCP/IPv4"
                 redirect("/")
     else:
         redirect("/")
@@ -264,7 +280,6 @@ def game2():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
-            print("sibmitting")
             gold  = request.get_cookie("gold")
             dead  = request.get_cookie("dead")
             wins  = request.get_cookie("wins")
@@ -284,8 +299,7 @@ def game2():
                 ))
                 updateTop()
                 for x in list(events["achievs"].values()):
-                    print(x, x.func(user_cookie))
-                    if x.func(user_cookie) and x not in users["users"][int(user_cookie)].achievements():
+                    if x.func(int(user_cookie)) and x not in users["users"][int(user_cookie)].achievements():
                         users["users"][int(user_cookie)].addAchievement(x)
                         cur.execute("UPDATE users SET chieves=CONCAT(chieves,\"" + x.ID() + " " + "\") WHERE ID=" + str(user_cookie) + ";")
                         conn.commit()
@@ -315,7 +329,7 @@ def userpage(username):
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
             if username in [x.name() for x in users["users"].values()]:
-                return template("userpage.tpl")
+                return template("userpage.tpl", user=list(filter(lambda x: x.name() == username, list(users["users"].values())))[0], events=events)
             else:
                 return template("404.tpl")
         else:
@@ -347,7 +361,6 @@ def leader():
     else:
         redirect("/")
 
-
 @route("/process")
 def process():
     try:
@@ -355,7 +368,6 @@ def process():
     finally:
         pass
     redirect("/")
-
 
 if os.environ.get("IS_HEROKU") is not None:
     run(host="0.0.0.0", port=os.environ.get("PORT"))
