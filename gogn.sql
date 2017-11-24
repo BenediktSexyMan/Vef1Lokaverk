@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users
 	ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name varchar(30) NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL,
-    PPicFile VARCHAR(255),
+    PPicFile VARCHAR(255) DEFAULT "/static/android-icon-192x192.png",
     descr VARCHAR(8000),
     chieves  VARCHAR(8000) DEFAULT ""
 );
@@ -29,7 +29,7 @@ VALUES
 (
 	"admin",
     "1234",
-    "./static/lol.png",
+    "/static/NonePro.jpg",
     "I'M GAY"
 );
 

@@ -13,10 +13,11 @@ users  = {"users"  : {}}
 
 
 class User:
-    def __init__(self, ID, name, profile=None, descr=None, chieves=None):
+    def __init__(self, ID, name, profile="/static/android-icon-192x192.png", descr=None, chieves=None):
         self.__ID      = ID
         self.__name    = name
-        self.__pro     = "./static/NonePro.jpg" if profile is None else profile
+        self.__pro     = profile
+        print(profile, self.__pro)
         self.__descr   = ""                     if descr   is None else descr
         self.__chieves = []                     if chieves is None else chieves
     def ID(self):
@@ -26,8 +27,10 @@ class User:
         return self.__name
     def profile(self, new_profile=None):
         self.__pro = self.__pro if new_profile is None else new_profile
+        return self.__pro
     def descr(self, new_descr=None):
         self.__descr = self.__descr if new_descr is None else new_descr
+        return self.__descr
     def achievements(self, new_chieves=None):
         self.__chieves = self.__chieves if new_chieves is None else new_chieves
         return self.__chieves
@@ -144,7 +147,7 @@ def updateUsers():
 with conn.cursor() as cur:
     cur.execute("SELECT ID, name, PPicFile, descr, chieves FROM users")
     for x in cur:
-        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), (list(filter(lambda x: x is not None, [events["achievs"][y] if y != "" else None for y in x[4].split(" ")])) if x[4] != "" else None))
+        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), (list(filter(lambda x: x is not None, [events["achievs"][y] if y != "" and y is not None else None for y in x[4].split(" ")])) if x[4] != "" else None))
     data = {"users": []}
     for x in list(users["users"].values()):
         data["users"].append({
@@ -190,6 +193,7 @@ with conn.cursor() as cur:
         json.dump(data, f)
 
 print(users)
+[print(x.profile()) for x in list(users["users"].values())]
 print(events)
 
 
@@ -241,7 +245,7 @@ def home2():
                     conn.commit()
                 users["users"][len(users["users"]) + 1] = User(len(users["users"]) + 1, name)
                 updateUsers()
-                response.set_cookie("user", len(users["users"]))  # , secret="SuckMyTCP/IPv4"
+                response.set_cookie("user", str(len(users["users"])))  # , secret="SuckMyTCP/IPv4"
                 redirect("/")
     else:
         redirect("/")
@@ -315,7 +319,7 @@ def userpage(username):
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
             if username in [x.name() for x in users["users"].values()]:
-                return template("userpage.tpl")
+                return template("userpage.tpl", user=list(filter(lambda x: x.name() == username, list(users["users"].values())))[0])
             else:
                 return template("404.tpl")
         else:
