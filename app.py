@@ -361,6 +361,18 @@ def leader():
     else:
         redirect("/")
 
+@route("/leaderpage")
+def leader():
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            with open("./views/leaderboard.tpl", "r") as f:
+                return f.read()
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
+
 @route("/process")
 def process():
     try:

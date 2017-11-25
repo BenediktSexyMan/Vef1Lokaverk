@@ -71,8 +71,12 @@
             </div>
             <h1 class="center">Achievements</h1>
             % for x in user.achievements():
-                <h3>{{x.name() }}</h3>
-                <p> {{x.descr()}}</p>
+            <div class="childchild">
+                <div class="center width50">
+                <h2>{{x.name() }}</h2>
+                <h3> {{x.descr()}}</h3>
+                </div>
+            </div>
             % end
         </div>
     </body>
