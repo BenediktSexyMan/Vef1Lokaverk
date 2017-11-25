@@ -362,12 +362,23 @@ def leader():
         redirect("/")
 
 @route("/leaderpage")
-def leader():
+def leaderboards():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
             with open("./views/leaderboard.tpl", "r") as f:
                 return f.read()
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
+
+@route("/achievements")
+def chavs():
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            return template("achievements.tpl", events=events, user=users["users"][int(user_cookie)])
         else:
             redirect("/process")
     else:

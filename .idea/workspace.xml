@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9996e86d-9dda-427e-9b97-c6776dfb3747" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/leadpagestyle.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/achievestyle.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/achievements.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WIP html/leadpagestyle.css" afterPath="$PROJECT_DIR$/WIP html/leadpagestyle.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.py" afterPath="$PROJECT_DIR$/app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/top.json" afterPath="$PROJECT_DIR$/static/top.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/users.json" afterPath="$PROJECT_DIR$/static/users.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/leaderboard.tpl" afterPath="$PROJECT_DIR$/views/leaderboard.tpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/navbar.tpl" afterPath="$PROJECT_DIR$/views/navbar.tpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/userpage.tpl" afterPath="$PROJECT_DIR$/views/userpage.tpl" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,8 +26,49 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="368" column="42" lean-forward="false" selection-start-line="368" selection-start-column="42" selection-end-line="368" selection-end-column="42" />
+            <state relative-caret-position="481">
+              <caret line="380" column="67" lean-forward="true" selection-start-line="380" selection-start-column="67" selection-end-line="380" selection-end-column="67" />
+              <folding>
+                <element signature="e#246#1331#0" expanded="false" />
+                <element signature="e#1355#1444#0" expanded="false" />
+                <element signature="e#1476#1935#0" expanded="false" />
+                <element signature="e#1971#2640#0" expanded="false" />
+                <element signature="e#2664#3918#0" expanded="false" />
+                <element signature="e#3955#3978#0" expanded="false" />
+                <element signature="e#4002#4545#0" expanded="false" />
+                <element signature="e#4571#4987#0" expanded="false" />
+                <element signature="e#5021#6751#0" expanded="false" />
+                <element signature="e#6843#6888#0" expanded="false" />
+                <element signature="e#6919#7282#0" expanded="false" />
+                <element signature="e#7329#9000#0" expanded="false" />
+                <element signature="e#9035#9303#0" expanded="false" />
+                <element signature="e#9354#10989#0" expanded="false" />
+                <element signature="e#11024#11340#0" expanded="false" />
+                <element signature="e#11394#11902#0" expanded="false" />
+                <element signature="e#11945#12270#0" expanded="false" />
+                <element signature="e#12314#12631#0" expanded="false" />
+                <element signature="e#12679#12998#0" expanded="false" />
+                <element signature="e#13410#13497#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="achievements.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/achievements.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="navbar.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/navbar.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="26" lean-forward="false" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -47,17 +84,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userpage.tpl" pinned="false" current-in-tab="false">
+      <file leaf-file-name="userpage.tpl" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/userpage.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="76" column="39" lean-forward="true" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
+            <state relative-caret-position="429">
+              <caret line="73" column="29" lean-forward="false" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="leaderboard.tpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="achievestyle.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/achievestyle.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="leaderboard.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/leaderboard.tpl">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
@@ -72,16 +119,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1132">
               <caret line="72" column="1" lean-forward="false" selection-start-line="72" selection-start-column="1" selection-end-line="72" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="navbar.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/navbar.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -106,6 +143,7 @@
       <find>mainuser</find>
       <find>lead</find>
       <find>leaderboards</find>
+      <find>userpage.tpl</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -124,9 +162,11 @@
         <option value="$PROJECT_DIR$/views/mainuser.tpl" />
         <option value="$PROJECT_DIR$/views/userpage.tpl" />
         <option value="$PROJECT_DIR$/static/leadpagestyle.css" />
-        <option value="$PROJECT_DIR$/app.py" />
-        <option value="$PROJECT_DIR$/views/navbar.tpl" />
         <option value="$PROJECT_DIR$/views/leaderboard.tpl" />
+        <option value="$PROJECT_DIR$/static/achievestyle.css" />
+        <option value="$PROJECT_DIR$/views/navbar.tpl" />
+        <option value="$PROJECT_DIR$/views/achievements.tpl" />
+        <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
   </component>
@@ -161,21 +201,6 @@
             <path>
               <item name="lokaverk" type="b2602c69:ProjectViewProjectNode" />
               <item name="lokaverk" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lokaverk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lokaverk" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lokaverk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lokaverk" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lokaverk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lokaverk" type="462c0819:PsiDirectoryNode" />
-              <item name="WIP html" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -293,26 +318,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/sketch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4624">
-          <caret line="272" column="9" lean-forward="true" selection-start-line="272" selection-start-column="9" selection-end-line="272" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/Main.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="23" lean-forward="false" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/extra.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -333,7 +343,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
-          <folding />
+          <folding>
+            <element signature="e#246#1331#0" expanded="false" />
+            <element signature="e#1355#1444#0" expanded="false" />
+            <element signature="e#1476#1935#0" expanded="false" />
+            <element signature="e#1971#2640#0" expanded="false" />
+            <element signature="e#2664#3918#0" expanded="false" />
+            <element signature="e#3955#3978#0" expanded="false" />
+            <element signature="e#4002#4545#0" expanded="false" />
+            <element signature="e#4571#4987#0" expanded="false" />
+            <element signature="e#5021#6751#0" expanded="false" />
+            <element signature="e#6843#6888#0" expanded="false" />
+            <element signature="e#6919#7282#0" expanded="false" />
+            <element signature="e#7329#9000#0" expanded="false" />
+            <element signature="e#9035#9303#0" expanded="false" />
+            <element signature="e#9354#10989#0" expanded="false" />
+            <element signature="e#11024#11340#0" expanded="false" />
+            <element signature="e#11394#11902#0" expanded="false" />
+            <element signature="e#11945#12270#0" expanded="false" />
+            <element signature="e#12314#12631#0" expanded="false" />
+            <element signature="e#12679#12998#0" expanded="false" />
+            <element signature="e#13410#13497#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -357,7 +388,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
           <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
-          <folding />
+          <folding>
+            <element signature="e#246#1331#0" expanded="false" />
+            <element signature="e#1355#1444#0" expanded="false" />
+            <element signature="e#1476#1935#0" expanded="false" />
+            <element signature="e#1971#2640#0" expanded="false" />
+            <element signature="e#2664#3918#0" expanded="false" />
+            <element signature="e#3955#3978#0" expanded="false" />
+            <element signature="e#4002#4545#0" expanded="false" />
+            <element signature="e#4571#4987#0" expanded="false" />
+            <element signature="e#5021#6751#0" expanded="false" />
+            <element signature="e#6843#6888#0" expanded="false" />
+            <element signature="e#6919#7282#0" expanded="false" />
+            <element signature="e#7329#9000#0" expanded="false" />
+            <element signature="e#9035#9303#0" expanded="false" />
+            <element signature="e#9354#10989#0" expanded="false" />
+            <element signature="e#11024#11340#0" expanded="false" />
+            <element signature="e#11394#11902#0" expanded="false" />
+            <element signature="e#11945#12270#0" expanded="false" />
+            <element signature="e#12314#12631#0" expanded="false" />
+            <element signature="e#12679#12998#0" expanded="false" />
+            <element signature="e#13410#13497#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -405,7 +457,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#246#1331#0" expanded="false" />
+            <element signature="e#1355#1444#0" expanded="false" />
+            <element signature="e#1476#1935#0" expanded="false" />
+            <element signature="e#1971#2640#0" expanded="false" />
+            <element signature="e#2664#3918#0" expanded="false" />
+            <element signature="e#3955#3978#0" expanded="false" />
+            <element signature="e#4002#4545#0" expanded="false" />
+            <element signature="e#4571#4987#0" expanded="false" />
+            <element signature="e#5021#6751#0" expanded="false" />
+            <element signature="e#6843#6888#0" expanded="false" />
+            <element signature="e#6919#7282#0" expanded="false" />
+            <element signature="e#7329#9000#0" expanded="false" />
+            <element signature="e#9035#9303#0" expanded="false" />
+            <element signature="e#9354#10989#0" expanded="false" />
+            <element signature="e#11024#11340#0" expanded="false" />
+            <element signature="e#11394#11902#0" expanded="false" />
+            <element signature="e#11945#12270#0" expanded="false" />
+            <element signature="e#12314#12631#0" expanded="false" />
+            <element signature="e#12679#12998#0" expanded="false" />
+            <element signature="e#13410#13497#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -477,7 +550,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
           <caret line="26" column="8" lean-forward="true" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="e#246#1331#0" expanded="false" />
+            <element signature="e#1355#1444#0" expanded="false" />
+            <element signature="e#1476#1935#0" expanded="false" />
+            <element signature="e#1971#2640#0" expanded="false" />
+            <element signature="e#2664#3918#0" expanded="false" />
+            <element signature="e#3955#3978#0" expanded="false" />
+            <element signature="e#4002#4545#0" expanded="false" />
+            <element signature="e#4571#4987#0" expanded="false" />
+            <element signature="e#5021#6751#0" expanded="false" />
+            <element signature="e#6843#6888#0" expanded="false" />
+            <element signature="e#6919#7282#0" expanded="false" />
+            <element signature="e#7329#9000#0" expanded="false" />
+            <element signature="e#9035#9303#0" expanded="false" />
+            <element signature="e#9354#10989#0" expanded="false" />
+            <element signature="e#11024#11340#0" expanded="false" />
+            <element signature="e#11394#11902#0" expanded="false" />
+            <element signature="e#11945#12270#0" expanded="false" />
+            <element signature="e#12314#12631#0" expanded="false" />
+            <element signature="e#12679#12998#0" expanded="false" />
+            <element signature="e#13410#13497#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -485,7 +579,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#246#1331#0" expanded="false" />
+            <element signature="e#1355#1444#0" expanded="false" />
+            <element signature="e#1476#1935#0" expanded="false" />
+            <element signature="e#1971#2640#0" expanded="false" />
+            <element signature="e#2664#3918#0" expanded="false" />
+            <element signature="e#3955#3978#0" expanded="false" />
+            <element signature="e#4002#4545#0" expanded="false" />
+            <element signature="e#4571#4987#0" expanded="false" />
+            <element signature="e#5021#6751#0" expanded="false" />
+            <element signature="e#6843#6888#0" expanded="false" />
+            <element signature="e#6919#7282#0" expanded="false" />
+            <element signature="e#7329#9000#0" expanded="false" />
+            <element signature="e#9035#9303#0" expanded="false" />
+            <element signature="e#9354#10989#0" expanded="false" />
+            <element signature="e#11024#11340#0" expanded="false" />
+            <element signature="e#11394#11902#0" expanded="false" />
+            <element signature="e#11945#12270#0" expanded="false" />
+            <element signature="e#12314#12631#0" expanded="false" />
+            <element signature="e#12679#12998#0" expanded="false" />
+            <element signature="e#13410#13497#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -597,34 +712,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/userpage.tpl">
+    <entry file="file://$PROJECT_DIR$/static/achievestyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="76" column="39" lean-forward="true" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
+        <state relative-caret-position="374">
+          <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/mainuser.tpl">
+    <entry file="file://$PROJECT_DIR$/views/leaderboard.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="11" lean-forward="true" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="368" column="42" lean-forward="false" selection-start-line="368" selection-start-column="42" selection-end-line="368" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/navbar.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+        <state relative-caret-position="378">
+          <caret line="137" column="32" lean-forward="true" selection-start-line="137" selection-start-column="32" selection-end-line="137" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -637,10 +736,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/leaderboard.tpl">
+    <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="137" column="32" lean-forward="true" selection-start-line="137" selection-start-column="32" selection-end-line="137" selection-end-column="32" />
+        <state relative-caret-position="481">
+          <caret line="380" column="67" lean-forward="true" selection-start-line="380" selection-start-column="67" selection-end-line="380" selection-end-column="67" />
+          <folding>
+            <element signature="e#246#1331#0" expanded="false" />
+            <element signature="e#1355#1444#0" expanded="false" />
+            <element signature="e#1476#1935#0" expanded="false" />
+            <element signature="e#1971#2640#0" expanded="false" />
+            <element signature="e#2664#3918#0" expanded="false" />
+            <element signature="e#3955#3978#0" expanded="false" />
+            <element signature="e#4002#4545#0" expanded="false" />
+            <element signature="e#4571#4987#0" expanded="false" />
+            <element signature="e#5021#6751#0" expanded="false" />
+            <element signature="e#6843#6888#0" expanded="false" />
+            <element signature="e#6919#7282#0" expanded="false" />
+            <element signature="e#7329#9000#0" expanded="false" />
+            <element signature="e#9035#9303#0" expanded="false" />
+            <element signature="e#9354#10989#0" expanded="false" />
+            <element signature="e#11024#11340#0" expanded="false" />
+            <element signature="e#11394#11902#0" expanded="false" />
+            <element signature="e#11945#12270#0" expanded="false" />
+            <element signature="e#12314#12631#0" expanded="false" />
+            <element signature="e#12679#12998#0" expanded="false" />
+            <element signature="e#13410#13497#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/achievements.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/navbar.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="26" lean-forward="false" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/mainuser.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="11" lean-forward="true" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/userpage.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="73" column="29" lean-forward="false" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
           <folding />
         </state>
       </provider>
