@@ -1,6 +1,6 @@
 html {
     height: 100%;
-    background-color: rgba(0, 137, 255, 0.75)
+    background-color: rgba(0, 137, 255, 0.75);
 }
 
 body {
@@ -64,4 +64,9 @@ hr {
 
 .bottomspace {
     margin-bottom: 2%;
+}
+
+.no {
+    display: flex;
+    flex-flow: row wrap;
 }

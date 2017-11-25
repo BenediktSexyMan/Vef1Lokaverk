@@ -35,7 +35,8 @@ function setup() {
 
 function draw() {
     if(Number(getCookie("justSubbed"))) {
-        setTimeout(refInfo, 1000);
+        setTimeout(refInfo, 2000);
+        setTimeout(refInfo, 6000);
         document.cookie="justSubbed=0";
     }
 }
