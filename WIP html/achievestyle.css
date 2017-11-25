@@ -15,9 +15,26 @@ body {
 
 .box {
     display: flex;
-    justify-content: space-around;
+    flex-flow: row wrap;
 }
 
-achievebox {
-    
+.achievebox {
+    width: 33.33%;
+}
+
+.sendpics {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: -18px;}
+
+img {
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 40px;
+}
+
+.achieveboxwin {
+    background-color: gold;
+    width: 33.33%;
 }
