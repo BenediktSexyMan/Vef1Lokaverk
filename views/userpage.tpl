@@ -70,14 +70,14 @@
                 </div>
             </div>
             <h1 class="center">Achievements</h1>
+            <div class="no">
             % for x in user.achievements():
-            <div class="childchild">
-                <div class="center width50">
-                <h2>{{x.name() }}</h2>
-                <h3> {{x.descr()}}</h3>
+                <div style="width:50%;text-align:center;">
+                    <h2>{{x.name() }}</h2>
+                    <h3> {{x.descr()}}</h3>
                 </div>
-            </div>
             % end
+            </div>
         </div>
     </body>
 </html>
