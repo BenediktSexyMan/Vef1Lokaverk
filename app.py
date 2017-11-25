@@ -114,6 +114,18 @@ events = {"achievs": {
         "#1",
         "#1 Baby!",
         lambda user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 1)]))) > 0
+    ),
+    "SIX": Achieve(
+        "SIX",
+        "You've Got Rich",
+        "Check your Panama, cus you've got 5000 gold",
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 5000
+    ),
+    "SEVEN": Achieve(
+        "SEVEN",
+        "You've Got Riches",
+        "Check your Privilige, cus you've got 10000 gold",
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 10000
     )
 
 
