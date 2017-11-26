@@ -1,4 +1,3 @@
 
 *.xml
-top.json
-users.json
+*.json
