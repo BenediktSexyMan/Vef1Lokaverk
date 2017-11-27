@@ -9,7 +9,7 @@
         <link href="./static/editstyleorign.css" type="text/css" rel="stylesheet">
     </head>
     <body class="" onload="refInfo()">
-        <div id="userLister">
+        <div id="userLister" style="display: none;">
             <div class="userInfo">
                 <div class="infoEl imgEl">
                     <img v-bind:src="user.PPicFile" style="background-color: lightblue; max-width: 100%; max-height:100%;">

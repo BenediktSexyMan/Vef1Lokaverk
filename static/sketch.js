@@ -34,6 +34,9 @@ var timeOffset          = 5000;
 var currentTimeOffset   = timeOffset;
 var player              = new Player(10);
 var gold                = 0;
+var dmg                 = 0;
+var block               = 0;
+var clicks              = 0;
 var progress            = 0;
 var progressRate        = 25;
 var currentProgressRate = progressRate;
@@ -64,6 +67,13 @@ function setup() {
     p3 = createP(player.arm.legs .name + " " + player.arm.legs .def + " def");
     p4 = createP("Gold 0" + " HP " + player.hp)                              ;
     document.cookie = "gold=0"                                               ;
+    document.cookie = "rounds=0"                                             ;
+    document.cookie = "dmg=0"                                                ;
+    document.cookie = "block=0"                                              ;
+    document.cookie = "clicks=0"                                             ;
+    document.cookie = "head=0"                                               ;
+    document.cookie = "chest=0"                                              ;
+    document.cookie = "lower=0"                                              ;
     document.cookie = "dead=0"                                               ;
     document.cookie = "justSubbed=0"                                         ;
     document.cookie = "justSubbed2=0"                                        ;
@@ -187,7 +197,7 @@ moused    = function(){butt1.style("cursor"          , "pointer"  )             
 moused2   = function(){butt2.style("cursor"          , "pointer"  )                                                                                                                                           ;};
 moused3   = function(){butt3.style("cursor"          , "pointer"  )                                                                                                                                           ;};
 clicked   = function(){ot=Date.now();t=ot+currentTimeOffset;playin=1;butt1.style("display","none");butt2.style("display","flex");butt4.style("display","none")                                                ;};
-clicked2  = function(){progress+=currentProgressRate                                                                                                                                                          ;};
+clicked2  = function(){progress+=currentProgressRate;clicks++;document.cookie="clicks="+clicks.toString()                                                                                                     ;};
 clicked3  = function(){butt3.style("display","none");butt1.style("display","flex");butt4.style("display","flex");select("#page").style("font-size",(min(windowWidth,windowHeight)/bfd).toString()+"px");fd=bfd;};
 clicked4  = function(){document.cookie="justSubbed=1";document.cookie="justSubbed2=1"                                                                                                                         ;};
 
@@ -249,19 +259,27 @@ function draw() {
                         sn = choice(names[3]);
                         player.arm.legs  = new Armor(fn+" "+sn, player.arm.legs .def + 2);
                     }
-                    document.cookie = "def=" + (player.arm.head.def + player.arm.torso.def + player.arm.legs.def).toString();
+                    document.cookie = "head=" + player.arm.head.def.toString();
+                    document.cookie = "chest=" + player.arm.torso.def.toString();
+                    document.cookie = "lower=" + player.arm.legs.def.toString();
+                    document.cookie = "def="  + (player.arm.head.def + player.arm.torso.def + player.arm.legs.def).toString();
                     mess = fn + " " + sn;
                 }
             }
             else {
                 turns[1]++;
-                var subt = 0;
-                subt = (floor(turns[0] / 2) + 2) - (player.arm.head.def + player.arm.torso.def + player.arm.legs.def);
+                var give = (floor(turns[0] / 2) + 2);
+                var subt = give - (player.arm.head.def + player.arm.torso.def + player.arm.legs.def);
                 if (subt <= 0)
                     subt = 1;
+                dmg += subt;
+                block += (give-subt);
+                document.cookie="dmg="+dmg.toString();
+                document.cookie="block="+block.toString();
                 mess = "Lost " + subt.toString() + " HP";
                 player.hp -= subt;
             }
+            document.cookie="rounds="+Number(turns[0]+turns[1]).toString();
             progress = 0;
             playin   = 0;
             butt3.html("<p>" + mess + "</p>");
