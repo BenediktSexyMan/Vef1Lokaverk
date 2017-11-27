@@ -35,7 +35,7 @@ class User:
         return self.__chieves
     def addAchievement(self, new_chieve):
         self.__chieves.append(new_chieve)
-    __repr__ = __str__ = lambda self: "User " + self.__name + " " + str(self.__chieves)
+    __repr__ = __str__ = lambda self: "User " + self.__name
 
 
 class UserEvent:
@@ -154,7 +154,7 @@ def updateTop():
 
 
 def updateUsers():
-    data = {"users": []}
+    data = {"users": [], "submiss": []}
     for x in list(users["users"].values()):
         data["users"].append({
             "ID": x.ID(),
@@ -162,6 +162,12 @@ def updateUsers():
             "PPicFile": x.profile(),
             "descr": x.descr(),
             "chieves": [[y.name(), y.descr()] for y in x.achievements()]
+        })
+    for x in events["submiss"]:
+        data["submiss"].append({
+            "user": x.user(),
+            "score": x.score(),
+            "submiss": "Submission " + str(x.score())
         })
     print(data)
     with open("./static/users.json", "w") as f:
@@ -199,6 +205,7 @@ with conn.cursor() as cur:
                 int(x[5])
             )
         )
+    updateUsers()
     data = {"top": []}
     cur.execute("SELECT users.name, submiss.gold, submiss.wins, submiss.def, submiss.dead, submiss.score FROM submiss JOIN users ON users.ID = submiss.userID ORDER BY submiss.score DESC LIMIT 10")
     ans = rows(cur)
@@ -309,6 +316,7 @@ def game2():
                     int(dead),
                     int(score)
                 ))
+                updateUsers()
                 updateTop()
                 for x in list(events["achievs"].values()):
                     if x.func(int(user_cookie)) and x not in users["users"][int(user_cookie)].achievements():

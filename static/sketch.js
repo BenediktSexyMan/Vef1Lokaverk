@@ -54,20 +54,21 @@ var names               = [
 ];
 
 function setup() {
-    createCanvas(windowWidth,windowHeight);
-    frameRate   (60);
-    bw  = width /bwd;
-    bh  = height/bhd;
-    ph  = height/phd;
+    createCanvas(windowWidth,windowHeight)                                   ;
+    frameRate   (60)                                                         ;
+    bw  = width /bwd                                                         ;
+    bh  = height/bhd                                                         ;
+    ph  = height/phd                                                         ;
     p1 = createP(player.arm.head .name + " " + player.arm.head .def + " def");
     p2 = createP(player.arm.torso.name + " " + player.arm.torso.def + " def");
     p3 = createP(player.arm.legs .name + " " + player.arm.legs .def + " def");
-    p4 = createP("Gold 0" + " HP " + player.hp);
-    document.cookie = "gold=0"      ;
-    document.cookie = "dead=0"      ;
-    document.cookie = "justSubbed=0";
-    document.cookie = "wins=0"      ;
-    document.cookie = "def=0"       ;
+    p4 = createP("Gold 0" + " HP " + player.hp)                              ;
+    document.cookie = "gold=0"                                               ;
+    document.cookie = "dead=0"                                               ;
+    document.cookie = "justSubbed=0"                                         ;
+    document.cookie = "justSubbed2=0"                                        ;
+    document.cookie = "wins=0"                                               ;
+    document.cookie = "def=0"                                                ;
 
     if(true){
     butt1=createDiv    ("<p>Find Treasure   </p>"                                             );
@@ -176,19 +177,19 @@ function windowResized() {
 
 }
 
-pressed   = function(){butt1.style("background-color", "lightgray");};
-pressed2  = function(){butt2.style("background-color", "lightgray");};
-pressed3  = function(){butt3.style("background-color", "lightgray");};
-released  = function(){butt1.style("background-color", "gray"     );};
-released2 = function(){butt2.style("background-color", "gray"     );};
-released3 = function(){butt3.style("background-color", "gray"     );};
-moused    = function(){butt1.style("cursor"          , "pointer"  );};
-moused2   = function(){butt2.style("cursor"          , "pointer"  );};
-moused3   = function(){butt3.style("cursor"          , "pointer"  );};
-clicked   = function(){ot=Date.now();t=ot+currentTimeOffset;playin=1;butt1.style("display","none");butt2.style("display","flex");butt4.style("display","none");};
-clicked2  = function(){progress+=currentProgressRate};
+pressed   = function(){butt1.style("background-color", "lightgray")                                                                                                                                           ;};
+pressed2  = function(){butt2.style("background-color", "lightgray")                                                                                                                                           ;};
+pressed3  = function(){butt3.style("background-color", "lightgray")                                                                                                                                           ;};
+released  = function(){butt1.style("background-color", "gray"     )                                                                                                                                           ;};
+released2 = function(){butt2.style("background-color", "gray"     )                                                                                                                                           ;};
+released3 = function(){butt3.style("background-color", "gray"     )                                                                                                                                           ;};
+moused    = function(){butt1.style("cursor"          , "pointer"  )                                                                                                                                           ;};
+moused2   = function(){butt2.style("cursor"          , "pointer"  )                                                                                                                                           ;};
+moused3   = function(){butt3.style("cursor"          , "pointer"  )                                                                                                                                           ;};
+clicked   = function(){ot=Date.now();t=ot+currentTimeOffset;playin=1;butt1.style("display","none");butt2.style("display","flex");butt4.style("display","none")                                                ;};
+clicked2  = function(){progress+=currentProgressRate                                                                                                                                                          ;};
 clicked3  = function(){butt3.style("display","none");butt1.style("display","flex");butt4.style("display","flex");select("#page").style("font-size",(min(windowWidth,windowHeight)/bfd).toString()+"px");fd=bfd;};
-clicked4  = function(){document.cookie="justSubbed=1"};
+clicked4  = function(){document.cookie="justSubbed=1";document.cookie="justSubbed2=1"                                                                                                                         ;};
 
 function draw() {
     if(0 >= player.hp) {

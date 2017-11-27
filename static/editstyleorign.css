@@ -1,0 +1,79 @@
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+#userLister {
+    height: 100%;
+}
+
+.userInfo {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.infoEl {
+    height: 100%;
+}
+
+.textEl {
+    width: 30%;
+    overflow-y: scroll;
+}
+
+.textEl::-webkit-scrollbar, .userAct::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #E56F32;
+}
+
+.textEl::-webkit-scrollbar-thumb, .userAct::-webkit-scrollbar-thumb
+{
+	background-color: #7F3E1C;
+}
+
+.infoText {
+    margin: 1% 0em 0em 2%;
+}
+
+.userAct {
+    width: calc(45% + 6px);
+    border-left: 4px #401F0E solid;
+    overflow-y: scroll;
+    display: flex;
+}
+
+.actions {
+text-align: center;
+    width: 50%;
+}
+
+.actions *{
+    margin: 0;
+}
+
+.actions h3 {
+    border-bottom: 4px #401F0E solid;
+}
+
+.entries {
+    padding: 0.3em;
+    border-bottom: 2px #401F0E solid;
+}
+
+.chieves .entries {
+    border-left: 4px #401F0E solid;
+}
+
+.imgEl {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    background-color: #E56F32;
+}
