@@ -61,14 +61,21 @@ class Achieve(UserEvent):
 
 
 class Submission(UserEvent):
-    def __init__(self, ID, userID, gold, wins, defe, dead, score):
+    def __init__(self, ID, userID, gold, wins, defe, dead, score, head, chest, lower, dmg, block, clicks, rounds):
         UserEvent.__init__(self, ID)
-        self.__gold  = gold
-        self.__wins  = wins
-        self.__defe  = defe
-        self.__dead  = dead
-        self.__score = score
-        self.__user  = userID
+        self.__gold   = gold
+        self.__wins   = wins
+        self.__defe   = defe
+        self.__dead   = dead
+        self.__score  = score
+        self.__user   = userID
+        self.__head   = head
+        self.__chest  = chest
+        self.__lower  = lower
+        self.__dmg    = dmg
+        self.__block  = block
+        self.__clicks = clicks
+        self.__rounds = rounds
     def gold(self):
         return self.__gold
     def wins(self):
@@ -79,6 +86,20 @@ class Submission(UserEvent):
         return self.__dead
     def score(self):
         return self.__score
+    def head(self):
+        return self.__head
+    def chest(self):
+        return self.__chest
+    def lower(self):
+        return self.__lower
+    def dmg(self):
+        return self.__dmg
+    def block(self):
+        return self.__block
+    def clicks(self):
+        return self.__clicks
+    def rounds(self):
+        return self.__rounds
     def user(self):
         return self.__user
     __repr__ = __str__ = lambda self: "Submission " + users["users"][self.user()].name() + " " + str(self.__score)
@@ -202,7 +223,14 @@ with conn.cursor() as cur:
                 int(x[2]),
                 int(x[3]),
                 int(x[4]),
-                int(x[5])
+                int(x[5]),
+                int(x[6]),
+                int(x[7]),
+                int(x[8]),
+                int(x[9]),
+                int(x[10]),
+                int(x[11]),
+                int(x[12]),
             )
         )
     updateUsers()
@@ -299,13 +327,20 @@ def game2():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
-            gold  = request.get_cookie("gold")
-            dead  = request.get_cookie("dead")
-            wins  = request.get_cookie("wins")
-            defe  = request.get_cookie("def" )
-            score = int(((int(gold)/2)*(int(wins)/2)*[int(defe)/2,1][int(defe)==0])/[1,2][int(dead)])
+            gold   = request.get_cookie("gold")
+            dead   = request.get_cookie("dead")
+            wins   = request.get_cookie("wins")
+            defe   = request.get_cookie("def" )
+            score  = int(((int(gold)/2)*(int(wins)/2)*[int(defe)/2,1][int(defe)==0])/[1,2][int(dead)])
+            head   = request.get_cookie("head")
+            chest  = request.get_cookie("chest")
+            lower  = request.get_cookie("lower")
+            dmg    = request.get_cookie("dmg")
+            block  = request.get_cookie("block")
+            clicks = request.get_cookie("clicks")
+            rounds = request.get_cookie("rounds")
             with conn.cursor() as cur:
-                cur.execute("INSERT INTO submiss(gold, wins, def, dead, score, userID) VALUES (" + str(gold) + "," + str(wins) + "," + str(defe) + "," + str(dead) + "," + str(score) + "," + str(user_cookie) + ");")
+                cur.execute("INSERT INTO submiss(gold, wins, def, dead, score, userID, head, chest, lower, dmg, blockd, clicks, rounds) VALUES (" + str(gold) + "," + str(wins) + "," + str(defe) + "," + str(dead) + "," + str(score) + "," + str(user_cookie) + "," +  str(head) + "," + str(chest) + "," + str(lower) + "," + str(dmg) + "," + str(block) + "," + str(clicks) + "," + str(rounds) + ");")
                 conn.commit()
                 events["submiss"].append(Submission(
                     len(events["submiss"]) + 1,
@@ -314,7 +349,14 @@ def game2():
                     int(wins),
                     int(defe),
                     int(dead),
-                    int(score)
+                    int(score),
+                    int(head),
+                    int(chest),
+                    int(lower),
+                    int(dmg),
+                    int(block),
+                    int(clicks),
+                    int(rounds)
                 ))
                 updateUsers()
                 updateTop()

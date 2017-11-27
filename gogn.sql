@@ -21,6 +21,13 @@ CREATE TABLE IF NOT EXISTS submiss
     dead BOOL NOT NULL,
     score BIGINT NOT NULL,
     userID INT NOT NULL,
+	head INT NOT NULL,
+	chest INT NOT NULL,
+	lower INT NOT NULL,
+	dmg INT NOT NULL,
+	blockd INT NOT NULL,
+	clicks INT NOT NULL,
+	rounds INT NOT NULL,
     FOREIGN KEY (userID) REFERENCES users(ID)
 );
 

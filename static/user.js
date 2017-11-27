@@ -55,8 +55,7 @@ function refInfo() {
             var result = JSON.parse(xhttp.responseText);
             for(var i in result.users) {
                 if(result.users[i].descr == "None") {
-                    // Will be replaced with "No description entered" which might link to the profile editor
-                    result.users[i].descr = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue eu sapien et euismod. Pellentesque nec lacus quis odio maximus porta non vitae dolor. Maecenas a lacinia justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean in neque in dui cursus suscipit sed in felis. Etiam consequat lacus vel congue lobortis. Morbi rutrum fermentum dolor vel viverra. Sed sollicitudin commodo est, sit amet hendrerit ipsum. Proin consequat, massa in finibus mattis, lectus mauris dictum felis, non bibendum magna purus vitae est. Proin erat lectus, volutpat nec risus vel, gravida posuere arcu. Nullam et est in lorem dapibus dignissim sed et diam.";
+                    result.users[i].descr = "No description given";
                 }
             }
             var sub = findUserSubmission(result);

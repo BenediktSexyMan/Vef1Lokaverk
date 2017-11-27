@@ -23,6 +23,6 @@
                 % end
             % end
         </div>
-        <h1 class="center">{{ format((len(user.achievements()) * 100) / len(list(events["achievs"].values())), '.01f') }}</h1>
+        <h1 class="center">{{ format((len(user.achievements()) * 100) / len(list(events["achievs"].values())), '.01f') }} <b>%</b></h1>
     </body>
 </html>
