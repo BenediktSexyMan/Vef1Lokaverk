@@ -145,11 +145,9 @@ html {
 
 .leadBody {
   margin: 0px;
-  overflow: hidden;
   height: 100%; }
   .leadBody #lister {
     min-height: 100%;
-    display: none;
     width: 100%;
     border-collapse: collapse; }
     .leadBody #lister tbody {

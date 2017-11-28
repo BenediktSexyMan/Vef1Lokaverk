@@ -9,7 +9,7 @@
         <script src="https://unpkg.com/vue"></script>
         <link href="./static/style.css" type="text/css" rel="stylesheet">
     </head>
-    <body class="leadBody" onload="refInfo()">
+    <body class="leadBody" style="overflow-x: hidden;">
         <table id="lister">
             <tbody>
                 <tr>
@@ -32,28 +32,30 @@
                         Score
                     </th>
                 </tr>
-                <tr v-for='x in top'>
-                    <td>
-                        {{x.name}}
-                    </td>
-                    <td>
-                        {{x.gold}}
-                    </td>
-                    <td>
-                        {{x.def}}
-                    </td>
-                    <td>
-                        {{x.wins}}
-                    </td>
-                    <td>
-                        {{["Alive", "Dead"][Number(x.dead)]}}
-                    </td>
-                    <td>
-                        {{x.score}}
-                    </td>
-                </tr>
+                % for x in sorted(submiss, key=lambda y: y.ID(), reverse=True):
+                    <tr>
+                        <td>
+                            {{list(filter(lambda y: y.ID() == x.user(), [users[z] for z in users]))[0].name()}}
+                        </td>
+                        <td>
+                            {{x.gold()}}
+                        </td>
+                        <td>
+                            {{x.defe()}}
+                        </td>
+                        <td>
+                            {{x.wins()}}
+                        </td>
+                        <td>
+                            {{["Alive", "Dead"][int(x.dead())]}}
+                        </td>
+                        <td>
+                            {{x.score()}}
+                        </td>
+                    </tr>
+                % end
             </tbody>
         </table>
-        <script src="./static/leaderboard.js"></script>
+        <!--<script src="./static/leaderboard.js"></script>-->
     </body>
 </html>
