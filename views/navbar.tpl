@@ -1,8 +1,8 @@
 <div class="box">
-    <a href="/achievements" class="wr"><h1>Achievements</h1></a>
-    <a href="/leaderpage" class="wr"><h1>Leaderboards</h1></a>
-    <a href="/u" class="wr"><h1>Users</h1></a>
-    <a href="/gay" class="wr"><h1>Placeholder</h1></a>
-    <a href="/gay" class="wr"><h1>Placeholder</h1></a>
-    <a href="/process" class="wr"><h1>Sign Out</h1></a>
+    <a href="/achievements" class="wr"><h2>Achievements</h2></a>
+    <a href="/leaderpage" class="wr"><h2>User</h2></a>
+    <a href="/u" class="wr"><h2>Leaderboards</h2></a>
+    <a href="/useredit" class="wr"><h2>User Editor</h2></a>
+    <a href="/info" class="wr"><h2>info</h2></a>
+    <a href="/process" class="wr"><h2>Sign Out</h2></a>
 </div>

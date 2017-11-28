@@ -390,8 +390,8 @@ def userpage(username):
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
-            if username in [x.name() for x in users["users"].values()]:
-                return template("userpage.tpl", user=list(filter(lambda x: x.name() == username, list(users["users"].values())))[0], events=events)
+            if username.lower() in list(map(lambda x: x.lower(), [x.name() for x in users["users"].values()])):
+                return template("userpage.tpl", user=list(filter(lambda x: x.name().lower() == username.lower(), list(users["users"].values())))[0], events=events)
             else:
                 return template("404.tpl")
         else:
@@ -406,6 +406,17 @@ def userpageredirect():
         if int(user_cookie) in users["users"]:
             username=users["users"][int(user_cookie)].name()
             redirect("/u/"+username)
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
+
+@route("/useredit")
+def userpageeditor():
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            return template('useredit.tpl')
         else:
             redirect("/process")
     else:

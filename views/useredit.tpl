@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="editstyle.css">
+        <link rel="stylesheet" href="/static/usereditstyle.css">
     </head>
     <body>
         <div class="bgcolor midbox">
             <div class="top">
                 <div class="profbox">
                     <div>
-                        <img class="c bgcolor imgsize" src="cosby.jpg">
-                        <form method="post"><input type="file" id="file" name="file">
+                        <img class="c bgcolor imgsize" src="/static/cosby.jpg">
+                        <form method="post"><input type="file" id="file" name="file"></form>
                     </div>
                     <div>
-                        <input type="text" name="Username" id="Username" class="titlebox" placeholder="{{current username}}">
+                        <input type="text" name="Username" id="Username" class="titlebox" placeholder="current username">
                         <h3>------------------------------------------------------------</h3>
                         <h3 class="bottomspace">Rank: #2</h3>
-                        <input type="text" class="textbox" name="desc" id="desc" placeholder="This is not working properly {{current description}}">
+                        <form method="post"><input type="text" class="textbox" name="desc" id="desc"  placeholder="This is not working properly current description"></form>
                     </div>
-                    
+
                 </div>
-                <input type="submit" value="Save changes"></form>
+                <form method="post"><input type="submit" value="Save changes"></form>
             </div>
             <hr><h1 class="center">Stats</h1>
             <div class="statbox">
