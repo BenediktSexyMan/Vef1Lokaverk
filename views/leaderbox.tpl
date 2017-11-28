@@ -9,8 +9,8 @@
         <script src="https://unpkg.com/vue"></script>
         <link href="./static/style.css" type="text/css" rel="stylesheet">
     </head>
-    <body class="leadBody" onload="refInfo()">
-        <table id="lister">
+    <body class="leadBody" onload="refInfo()" style="overflow: hidden;">
+        <table id="lister" style="display: none;">
             <tbody>
                 <tr>
                     <th>

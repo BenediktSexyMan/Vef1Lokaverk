@@ -434,13 +434,43 @@ def leader():
     else:
         redirect("/")
 
+
+#print((a//15)+(a%15!=0))
+
 @route("/leaderpage")
+@route("/leaderpage", method="POST")
+def leaderboard():
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            page = request.query.get("page")
+            if page is None:
+                page = 0
+            else:
+                try:
+                    int(page)
+                    page = int(page)
+                except(ValueError):
+                    page = 0
+            maxPage = len(list(users["users"].values()))//15+(len(list(users["users"].values()))%15!=0)
+            if page >= maxPage:
+                page = 0
+            elif page < 0:
+                page = maxPage - 1
+            if request.forms.get("posted") is not None:
+                redirect("/leaderpage?page=" + str(page))
+            return template("leaderboard.tpl", page=page, users=sorted(list(users["users"].values()), key=lambda x: sum([z.score() for z in list(filter(lambda y: x.ID() == y.user(), sorted(events["submiss"], key=lambda y: y.score(), reverse=True)))]), reverse=True)[page*15:((page*15)+15 if (page*15)+15 <= len(list(users["users"].values())) else len(list(users["users"].values())))], submiss=events["submiss"])
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
+
+@route("/all")
 def leaderboards():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
-            with open("./views/leaderboard.tpl", "r") as f:
-                return f.read()
+            return template("allSubs.tpl", users=users["users"], submiss=events["submiss"])
         else:
             redirect("/process")
     else:

@@ -1,4 +1,4 @@
-function getCookie(key) {
+/*function getCookie(key) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + key + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
@@ -20,6 +20,7 @@ function findUserSubmission(users) {
             submissions.push(users.submiss[i]);
         }
     }
+    submissions.reduce(function(a,b){return a.score+b.score;}, 0);
     return submissions;
 }
 
@@ -29,9 +30,8 @@ function refInfo() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var result = JSON.parse(xhttp.responseText);
-            results.users.sort(
-                
-            )
+            result.users.sort(function(a, b){return findUserSubmission(a) - findUserSubmission(a)});
+            result.users.reverse();
             console.log("gotten2");
             if(lister === null) {
                 select("#subLister").style("display", "block");
@@ -65,4 +65,4 @@ function draw() {
         setTimeout(refInfo, 6000);
         document.cookie="justSubbed2=0";
     }
-}
+}*/
