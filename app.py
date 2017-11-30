@@ -1,13 +1,34 @@
 import os
 import sys
 import random
+import re
 import json
+from time import time as epoch
 from bottle import *
 from pymysql import *
 
 
-conn = connect(host='tsuts.tskoli.is', user='1311992289', passwd='mypassword', db='1311992289_vef1lokaverk')
+def indexOfNth(container, elem = " ", nth = 1):
+    if nth == 0:
+        return 0
+    elif nth == "last":
+        occ = -1
+        for i, x in enumerate(container):
+            if x == elem:
+                occ = i
+        return occ
+    else:
+        occ = 0
+        for i, x in enumerate(container):
+            if x == elem:
+                occ += 1
+            if occ == nth:
+                return i
+        if occ < nth:
+            return len(container) - 1
 
+
+conn = connect(host='tsuts.tskoli.is', user='1311992289', passwd='mypassword', db='1311992289_vef1lokaverk')
 
 users  = {"users"  : {}}
 
@@ -372,7 +393,7 @@ def home2():
             cur.execute("SELECT users.ID FROM users WHERE name='" + request.forms.get("username") + "';")
             ans = rows(cur)
             if len(ans):
-                cur.execute("SELECT users.ID FROM users WHERE password='" + request.forms.get("password") + "';")
+                cur.execute("SELECT users.ID FROM users WHERE password='" + request.forms.get("password") + "' and name = '" + request.forms.get("username") + "';")
                 ans = rows(cur)
                 if len(ans):
                     response.set_cookie("user", str(ans[0][0]))  # , secret="SuckMyTCP/IPv4"
@@ -464,13 +485,24 @@ def game2():
         redirect("/")
 
 
-@route("/user")
+@route("/reallylongandununderstandablelinktotheuser")
 def user():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
             with open("./views/mainuser.tpl", "r") as f:
                 return f.read()
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
+
+@route("/user")
+def user():
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            redirect("/u")
         else:
             redirect("/process")
     else:
@@ -507,7 +539,52 @@ def userpageeditor():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
-            return template('useredit.tpl')
+            return template('useredit.tpl', user=users["users"][int(user_cookie)], events=events)
+        else:
+            redirect("/process")
+    else:
+        redirect("/")
+
+@route("/save", method="POST")
+def save():
+    user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
+    if user_cookie is not None:
+        if int(user_cookie) in users["users"]:
+            print(users["users"][int(user_cookie)].profile())
+            name = request.forms.get("name")
+            if name in [x.name() for x in list(users["users"].values())] and name != users["users"][int(user_cookie)].name():
+                return "<h1>Username already exists<br><a href=\"/useredit\">TRY AGAIN</a></h1>"
+            users["users"][int(user_cookie)].name(name)
+            desc = request.forms.get("desc")
+            if not len(re.findall("^[^#*<>\"'{}\[\];]+$", desc)):
+                return desc + "  ? Hélstu virkilega að þetta myndi virka?"
+            users["users"][int(user_cookie)].descr(desc)
+            img  = request.files.get("imageFile")
+            if img is not None:
+                if users["users"][int(user_cookie)].profile() != "/static/android-icon-192x192.png":
+                    os.remove("." + users["users"][int(user_cookie)].profile())
+                img.filename = str(epoch()) + img.filename[indexOfNth(img.filename, ".", "last"):]
+                users["users"][int(user_cookie)].profile("/static/" + img.filename)
+                img.save("./static")
+            with conn.cursor() as cur:
+                print(
+                    "UPDATE users SET name = \"" \
+                    + users["users"][int(user_cookie)].name() \
+                    + "\", PPicFile = \""  + users["users"][int(user_cookie)].profile() \
+                    + "\", descr = \"" + users["users"][int(user_cookie)].descr() \
+                    + "\" WHERE ID = " + user_cookie + ";"
+                )
+                cur.execute(
+                    "UPDATE users SET name = \"" \
+                    + users["users"][int(user_cookie)].name() \
+                    + "\", PPicFile = \""  + users["users"][int(user_cookie)].profile() \
+                    + "\", descr = \"" + users["users"][int(user_cookie)].descr() \
+                    + "\" WHERE ID = " + user_cookie + ";"
+                )
+                conn.commit()
+            updateUsers()
+            updateTop()
+            redirect("/")
         else:
             redirect("/process")
     else:
