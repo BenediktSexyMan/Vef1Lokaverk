@@ -3,6 +3,10 @@
 
 ## [Link á síðuna](https://lokaverkefni.herokuapp.com/)
 
+### Nánari upplýsingar um verkefnið sjálft getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/wiki)
+
+### Nánari upplýsingar um markmið, hvernig okkur gengur og hver gerði hvaða hluti getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/projects)
+
 ## Main vefsíðann
 ### Á forsíðunni eru fjórar iframed síður fyrir leikinn, scoreboardið, navbar og user info.
 ### - Það er hægt að sjá log með öllu sem þú hefur gert í leiknum og öllu sem aðrir hafa gert.
@@ -22,7 +26,3 @@
 ### - Post requests
 ### - Get requests
 ### - Redirecting
-
-### Nánari upplýsingar um verkefnið sjálft getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/wiki)
-
-### Nánari upplýsingar um markmið, hvernig okkur gengur og hver gerði hvaða hluti getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/projects)
