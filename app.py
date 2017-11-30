@@ -564,7 +564,7 @@ def save():
                 if users["users"][int(user_cookie)].profile() != "/static/android-icon-192x192.png":
                     try:
                         os.remove("." + users["users"][int(user_cookie)].profile())
-                    finally: pass
+                    except: pass
                 img.filename = str(epoch()) + img.filename[indexOfNth(img.filename, ".", "last"):]
                 users["users"][int(user_cookie)].profile("/static/" + img.filename)
                 img.save("./static")
