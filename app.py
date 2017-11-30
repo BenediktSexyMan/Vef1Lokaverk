@@ -556,13 +556,15 @@ def save():
                 return "<h1>Username already exists<br><a href=\"/useredit\">TRY AGAIN</a></h1>"
             users["users"][int(user_cookie)].name(name)
             desc = request.forms.get("desc")
-            if not len(re.findall("^[^#*<>\"'{}\[\];]+$", desc)):
+            if not len(re.findall("^[^#*<>\"'{}\[\];]+$", desc)) and len(desc) != 0:
                 return desc + "  ? Hélstu virkilega að þetta myndi virka?"
             users["users"][int(user_cookie)].descr(desc)
             img  = request.files.get("imageFile")
             if img is not None:
                 if users["users"][int(user_cookie)].profile() != "/static/android-icon-192x192.png":
-                    os.remove("." + users["users"][int(user_cookie)].profile())
+                    try:
+                        os.remove("." + users["users"][int(user_cookie)].profile())
+                    finally: pass
                 img.filename = str(epoch()) + img.filename[indexOfNth(img.filename, ".", "last"):]
                 users["users"][int(user_cookie)].profile("/static/" + img.filename)
                 img.save("./static")
@@ -584,7 +586,7 @@ def save():
                 conn.commit()
             updateUsers()
             updateTop()
-            redirect("/")
+            redirect("/u")
         else:
             redirect("/process")
     else:

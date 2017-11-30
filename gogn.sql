@@ -36,7 +36,7 @@ VALUES
 (
 	"admin",
     "1234",
-    "I'M GAY"
+    "IM GAY"
 );
 
 
