@@ -33,7 +33,7 @@
                     </th>
                 </tr>
                 <tr v-for='x in top'>
-                    <td>
+                    <td v-bind:onclick="function() { parent.location.location.href = '/u/' + x.name;}">
                         {{x.name}}
                     </td>
                     <td>

@@ -9,7 +9,7 @@
                 <div class="profbox">
                     <div>
                         <img class="c bgcolor imgsize" src="/static/cosby.jpg">
-                        <form method="post"><input type="file" id="file" name="file"></form>
+                        <form method="post"><input type="file" accept="image/*" id="file" name="file"></form>
                     </div>
                     <div>
                         <input type="text" name="Username" id="Username" class="titlebox" placeholder="current username">
