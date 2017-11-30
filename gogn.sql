@@ -31,12 +31,11 @@ CREATE TABLE IF NOT EXISTS submiss
     FOREIGN KEY (userID) REFERENCES users(ID)
 );
 
-INSERT INTO users(name, password, PPicFile, descr)
+INSERT INTO users(name, password, descr)
 VALUES
 (
 	"admin",
     "1234",
-    "/static/NonePro.jpg",
     "I'M GAY"
 );
 

@@ -24,7 +24,7 @@
     </head>
     <body>
         <div class="user-and-game">
-            <iframe src="user" class="userInfo"></iframe>
+            <iframe src="reallylongandununderstandablelinktotheuser" class="userInfo"></iframe>
             <iframe src="game" class="gameBox"></iframe>
         </div>
         <div class="nav-and-score">

@@ -4,7 +4,6 @@ html {
 }
 
 body {
-    height: 100% !important;
     max-width: 60em;
     margin: auto;
 }
@@ -17,7 +16,7 @@ body {
 
 .profbox {
     display: flex;
-    width: 900px;
+    width: 75%;
 }
 
 h3 {
@@ -76,4 +75,13 @@ hr {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.submissButt {
+    height: 1.5em;
 }
