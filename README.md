@@ -7,7 +7,7 @@
 ### Á forsíðunni eru fjórar iframed síður fyrir leikinn, scoreboardið, navbar og user info.
 ### - Það er hægt að sjá log með öllu sem þú hefur gert í leiknum og öllu sem aðrir hafa gert.
 ### - Það er dynamic routing kerfi fyrir users.
-### - Það verður sér leaderboard síða, profile editor achievement kerfi og fleira.
+### - Það er sér leaderboard síða, profile editor achievement kerfi og fleira.
 
 ## Vefforritunar notkun
 ### - Bottle
