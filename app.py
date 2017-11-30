@@ -170,7 +170,7 @@ events = {"achievs": {
         "ELEVEN",
         "Worthless Millionaire",
         "You now posess a total of 1 million points! Too bad they can't be used anywhere",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 100000
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 1000000
     ),
     "TWELVE": Achieve(
         "TWELVE",

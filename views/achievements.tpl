@@ -5,6 +5,10 @@
     </head>
     <body>
         <h1 class="center">Achievements</h1>
+        <h1 class="center">{{ format((len(user.achievements()) * 100) / len(list(events["achievs"].values())), '.01f') }}%</h1>
+        % if len(user.achievements()) == len(list(events["achievs"].values())):
+            <h1 class="center">Congratulations!<br>You have earned all of the achievements!</h1>
+        % end
         <div class="box">
             % for x in list(events["achievs"].values()):
                 % if x in user.achievements():
@@ -23,6 +27,6 @@
                 % end
             % end
         </div>
-        <h1 class="center">{{ format((len(user.achievements()) * 100) / len(list(events["achievs"].values())), '.01f') }} <b>%</b></h1>
+        <a class="sendpics" href="/"><input type="button" value="Home"></a>
     </body>
 </html>
