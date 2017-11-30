@@ -1,7 +1,7 @@
 html {
     height: 100%;
     padding: 0;
-    background-color: rgba(252, 10, 243, 0.13);
+    background-color: rgba(10, 47, 252, 0.08);
 }
 
 body {
@@ -32,7 +32,7 @@ footer {
 
 h2 {
     border: 1px solid black;
-    margin: 0;
+    margin:W 0;
     padding-left: 1%;
 }
 

@@ -56,6 +56,7 @@
                 % end
             </tbody>
         </table>
+        <a class="leadbody" href="/"><input type="button" value="Home"></a>
         <!--<script src="./static/leaderboard.js"></script>-->
     </body>
 </html>
