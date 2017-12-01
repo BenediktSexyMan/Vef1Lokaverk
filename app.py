@@ -120,120 +120,132 @@ events = {"achievs": {
     ),
     "THREE": Achieve(
         "THREE",
-        "I made it mum",
-        "You got a submission on the leaderboard!!!",
-        lambda user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]))) > 0
+        "You've Got clothes",
+        "Your adventure is only beginning!",
+        lambda user: sum([y.defe() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0
     ),
     "FOUR": Achieve(
         "FOUR",
+        "I made it mum",
+        "You got a submission on the leaderboard!!!",
+        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]))) > 0
+    ),
+    "FIVE": Achieve(
+        "FIVE",
         "Top Three",
         "Hope you enjoyed the Paralympics :)",
-        lambda user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 3)]))) > 0
-    ),
-    "Five": Achieve(
-        "Five",
-        "#1",
-        "#1 Baby!",
-        lambda user: len(list(filter(lambda x: x.user() == user, sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 1)]))) > 0
+        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 3)]))) > 0
     ),
     "SIX": Achieve(
         "SIX",
+        "#1",
+        "#1 Baby!",
+        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 1)]))) > 0
+    ),
+    "SEVEN": Achieve(
+        "SEVEN",
+        "You've Got Your First Paycheck",
+        "Check your brand new yacht, cus you've got 2500 gold",
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 2500
+    ),
+    "EIGHT": Achieve(
+        "EIGHT",
         "You've Got Rich",
         "Check your Panama, cus you've got 5000 gold",
         lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 5000
     ),
-    "SEVEN": Achieve(
-        "SEVEN",
+    "NINE": Achieve(
+        "NINE",
         "You've Got Riches",
         "Check your Privilige, cus you've got 10000 gold",
         lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000
     ),
-    "EIGHT": Achieve(
-        "EIGHT",
+    "TEN": Achieve(
+        "TEN",
         "Beginner",
-        "Get a total score of 2000",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 2000
-    ),
-    "NINE": Achieve(
-        "NINE",
-        "Average Joe",
         "Get a total score of 10000",
         lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000
     ),
-    "TEN": Achieve(
-        "TEN",
-        "Hundred",
-        "i choose you",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 100000
-    ),
     "ELEVEN": Achieve(
         "ELEVEN",
+        "Average Joe",
+        "Get a total score of 100000",
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 100000
+    ),
+    "TWELVE": Achieve(
+        "TWELVE",
         "Worthless Millionaire",
         "You now posess a total of 1 million points! Too bad they can't be used anywhere",
         lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 1000000
     ),
-    "TWELVE": Achieve(
-        "TWELVE",
+    "THIRTEEN": Achieve(
+        "THIRTEEN",
         "X Factor",
         "Get a total score of 10!",
         lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 3628800
     ),
-    "THIRTEEN": Achieve(
-        "THIRTEEN",
+    "FOURTEEN": Achieve(
+        "FOURTEEN",
+        "Carpal Tunnel",
+        "Get a total score of 10 million!",
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000000
+    ),
+    "FIFTEEN": Achieve(
+        "FIFTEEN",
         "Golden Helmet",
         "by collecting 10 defence worh of head armor pieces you were able to stitch them together into a cool golden helmet!",
         lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.head(), reverse=True)]))[0].head() >= 10
     ),
-    "FOURTEEN": Achieve(
-        "FOURTEEN",
+    "SIXTEEN": Achieve(
+        "SIXTEEN",
         "Golden Chestplate",
         "with 10 defence worth of chestplates you now have golden moobs!",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.chest(), reverse=True)]))[0].chest() >= 10
     ),
-    "FIFTEEN": Achieve(
-        "FIFTEEN",
+    "SEVENTEEN": Achieve(
+        "SEVENTEEN",
         "Golden Pants",
         "Your pants have been upgraded to Golden by collecting 10 defence worth of pants!",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.lower(), reverse=True)]))[0].lower() >= 10
     ),
-    "SIXTEEN": Achieve(
-        "SIXTEEN",
+    "EIGHTEEN": Achieve(
+        "EIGHTEEN",
         "Vagabond",
         "you got 10k points in a single run!",
         lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 10000
     ),
-    "SEVENTEEN": Achieve(
-        "SEVENTEEN",
+    "NINETEEN": Achieve(
+        "NINETEEN",
         "Adventurer",
         "you got 100k points in a single run!",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 100000
     ),
-    "EIGHTEEN": Achieve(
-        "EIGHTEEN",
+    "TWENTY": Achieve(
+        "TWENTY",
         "20 Year MMORPG Veteran",
         "you got 1 million points in a single run!",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 1000000
     ),
-    "NINETEEN": Achieve(
-        "NINETEEN",
+    "TWENTYONE": Achieve(
+        "TWENTYONE",
         "Golden House",
         "Collect 500 gold in a single run",
         lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 500
     ),
-    "TWENTY": Achieve(
-        "TWENTY",
+    "TWENTYTWO": Achieve(
+        "TWENTYTWO",
         "Golden Mansion",
         "Collect 1000 gold in a single run",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 1000
     ),
-    "TWENTYONE": Achieve(
-        "TWENTYONE",
+    "TWENTYTHREE": Achieve(
+        "TWENTYTHREE",
         "Golden Castle",
         "Collect 2000 gold in a single run",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 2000
     ),
-    "TWENTYTWO": Achieve(
-        "TWENTYTWO",
+    "TWENTYFOUR": Achieve(
+        "TWENTYFOUR",
         "Golden White House",
         "Collect 3000 gold in a single run",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 3000
@@ -524,9 +536,6 @@ def leader():
             redirect("/process")
     else:
         redirect("/")
-
-
-#print((a//15)+(a%15!=0))
 
 @route("/leaderpage")
 @route("/leaderpage", method="POST")
