@@ -183,6 +183,12 @@ events = {"achievs": {
     ),
     "TEN": Achieve(
         "TEN",
+        "Newbie",
+        "Get a total score of 5000",
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 5000
+    ),
+    "TEN": Achieve(
+        "TEN",
         "Beginner",
         "Get a total score of 10000",
         lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000
@@ -246,12 +252,6 @@ events = {"achievs": {
         "20 Year MMORPG Veteran",
         "you got 1 million points in a single run!",
         lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 1000000
-    ),
-    "TWENTYONE": Achieve(
-        "TWENTYONE",
-        "Golden House",
-        "Collect 500 gold in a single run",
-        lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 500
     ),
     "TWENTYTWO": Achieve(
         "TWENTYTWO",
