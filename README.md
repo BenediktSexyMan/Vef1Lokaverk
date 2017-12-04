@@ -4,9 +4,9 @@
 ## [Link á síðuna](https://lokaverkefni.herokuapp.com/)
 
 ## Nánari upplýsingar um verkefnið sjálft getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/wiki)
+### Þessi linkur fer á heroku en er það ekkert virkilega smooth í keyrslu þannig að við mælum með [þessari síðu](http://benni.vaentanlega.com/) en er hún hostuð á dedicated server tölvu.
 
 ## Nánari upplýsingar um markmið, hvernig okkur gengur og hver gerði hvaða hluti getur þú fundið [hér](https://github.com/BenediktSexyMan/Vef1Lokaverk/projects)
-### Þessi linkur fer á heroku en er það ekkert virkilega smooth í keyrslu þannig að við mælum með [þessari síðu](http://benni.vaentanlega.com/) en er hún hostuð á dedicated server tölvu.
 
 ## Main vefsíðann
 ### Á forsíðunni eru fjórar iframed síður fyrir leikinn, scoreboardið, navbar og user info.
