@@ -7,7 +7,6 @@ from time import time as epoch
 from bottle import *
 from pymysql import *
 
-
 def indexOfNth(container, elem = " ", nth = 1):
     if nth == 0:
         return 0
@@ -27,13 +26,37 @@ def indexOfNth(container, elem = " ", nth = 1):
         if occ < nth:
             return len(container) - 1
 
+def sanitize(inputstr):
+    sanitized = inputstr
+    badstrings = [
+        ';',
+        '$',
+        '&&',
+        '../',
+        '<',
+        '>',
+        '%3C',
+        '%3E',
+        '\'',
+        '--',
+        '1,2',
+        '\x00',
+        '`',
+        '(',
+        ')',
+        'file://',
+        'input://'
+    ]
+    for badstr in badstrings:
+        if badstr in sanitized:
+            sanitized = sanitized.replace(badstr, '')
+    return sanitized
 
 conn = connect(host='tsuts.tskoli.is', user='1311992289', passwd='mypassword', db='1311992289_vef1lokaverk')
 
 users  = {"users"  : {}}
 
-
-class User:
+class User: # creates user
     def __init__(self, ID, name, profile="/static/android-icon-192x192.png", descr=None, chieves=None):
         self.__ID      = ID
         self.__name    = name
@@ -58,14 +81,13 @@ class User:
         self.__chieves.append(new_chieve)
     __repr__ = __str__ = lambda self: "User " + self.__name
 
-
-class UserEvent:
+class UserEvent: # parent class for submissions
     def __init__(self, ID):
         self.__ID = ID
     def ID(self):
         return self.__ID
 
-class Achieve(UserEvent):
+class Achieve(UserEvent): #creates achievements
     def __init__(self, ID, name, descr = None, funct = None):
         UserEvent.__init__(self, ID)
         self.__name  = name
@@ -80,8 +102,7 @@ class Achieve(UserEvent):
         return self.__descr
     __repr__ = __str__ = lambda self: "Achievement " + self.__name
 
-
-class Submission(UserEvent):
+class Submission(UserEvent): # collects information for various things
     def __init__(self, ID, userID, gold, wins, defe, dead, score, head, chest, lower, dmg, block, clicks, rounds):
         UserEvent.__init__(self, ID)
         self.__gold   = gold
@@ -125,151 +146,150 @@ class Submission(UserEvent):
         return self.__user
     __repr__ = __str__ = lambda self: "Submission " + users["users"][self.user()].name() + " " + str(self.__score)
 
-
 events = {"achievs": {
     "ONE": Achieve(
         "ONE",
         "Registered Submitter",
         "Hey, you submitted a score!... Coooooool!",
-        lambda user: len(list(filter(lambda x: x.user() == user, events["submiss"]))) > 0
+        lambda user: len(list(filter(lambda x: x.user() == user, events["submiss"]))) > 0 # submit a score
     ),
     "TWO": Achieve(
         "TWO",
         "You've Got Gold",
         "Check your inbox",
-        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0 # fá meira en 0 gold
     ),
     "THREE": Achieve(
         "THREE",
         "You've Got clothes",
         "Your adventure is only beginning!",
-        lambda user: sum([y.defe() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0
+        lambda user: sum([y.defe() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) > 0 # fá 1 armor
     ),
     "FOUR": Achieve(
         "FOUR",
         "I made it mum",
         "You got a submission on the leaderboard!!!",
-        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]))) > 0
+        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]))) > 0 # eitt top 10 score
     ),
     "FIVE": Achieve(
         "FIVE",
         "Top Three",
         "Hope you enjoyed the Paralympics :)",
-        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 3)]))) > 0
+        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 3)]))) > 0 # eitt top 3 score
     ),
     "SIX": Achieve(
         "SIX",
         "#1",
         "#1 Baby!",
-        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 1)]))) > 0
+        lambda user: len(list(filter(lambda x: x.user() == user,sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 1)]))) > 0 # fyrsta sæti á leaderboards
     ),
     "SEVEN": Achieve(
         "SEVEN",
         "You've Got Your First Paycheck",
         "Check your brand new yacht, cus you've got 2500 gold",
-        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 2500
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 2500 # 2500 gold
     ),
     "EIGHT": Achieve(
         "EIGHT",
         "You've Got Rich",
         "Check your Panama, cus you've got 5000 gold",
-        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 5000
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 5000 # 5000 gold
     ),
     "NINE": Achieve(
         "NINE",
         "You've Got Riches",
         "Check your Privilige, cus you've got 10000 gold",
-        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000
+        lambda user: sum([y.gold() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000 # 10000 gold
     ),
     "TEN": Achieve(
         "TEN",
         "Newbie",
         "Get a total score of 5000",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 5000
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 5000 # 5k score total
     ),
     "ELEVEN": Achieve(
         "ELEVEN",
         "Beginner",
         "Get a total score of 10000",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000 # 10k score total
     ),
     "TWELVE": Achieve(
         "TWELVE",
         "Average Joe",
         "Get a total score of 100000",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 100000
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 100000 # 100k score total
     ),
     "THIRTEEN": Achieve(
         "THIRTEEN",
         "Worthless Millionaire",
         "You now posess a total of 1 million points! Too bad they can't be used anywhere",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 1000000
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 1000000 # 1m score total
     ),
     "FOURTEEN": Achieve(
         "FOURTEEN",
         "X Factor",
         "Get a total score of 10!",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 3628800
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 3628800 # 10! score total
     ),
     "FIFTEEN": Achieve(
         "FIFTEEN",
         "Carpal Tunnel",
         "Get a total score of 10 million!",
-        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000000
+        lambda user: sum([y.score() for y in list(filter(lambda x: x.user() == user, events["submiss"]))]) >= 10000000 # 10m score total
     ),
     "SIXTEEN": Achieve(
         "SIXTEEN",
         "Golden Helmet",
         "by collecting 10 defence worh of head armor pieces you were able to stitch them together into a cool golden helmet!",
-        lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.head(), reverse=True)]))[0].head() >= 10
+        lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.head(), reverse=True)]))[0].head() >= 10 # 10 head armor í einum leik
     ),
     "SEVENTEEN": Achieve(
         "SEVENTEEN",
         "Golden Chestplate",
         "with 10 defence worth of chestplates you now have golden moobs!",
-        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.chest(), reverse=True)]))[0].chest() >= 10
+        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.chest(), reverse=True)]))[0].chest() >= 10 # 10 body armor í einum leik
     ),
     "EIGHTEEN": Achieve(
         "EIGHTEEN",
         "Golden Pants",
         "Your pants have been upgraded to Golden by collecting 10 defence worth of pants!",
-        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.lower(), reverse=True)]))[0].lower() >= 10
+        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.lower(), reverse=True)]))[0].lower() >= 10 # 10 lower body armor í einum leik
     ),
     "NINETEEN": Achieve(
         "NINETEEN",
         "Vagabond",
         "you got 10k points in a single run!",
-        lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 10000
+        lambda user: list(filter(lambda x: user == x.user(), [y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 10000 #10k points í einu
     ),
     "TWENTY": Achieve(
         "TWENTY",
         "Adventurer",
         "you got 100k points in a single run!",
-        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 100000
+        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 100000 #100k points í einu
     ),
     "TWENTYONE": Achieve(
         "TWENTYONE",
         "20 Year MMORPG Veteran",
         "you got 1 million points in a single run!",
-        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 1000000
+        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)]))[0].score() >= 1000000 #1m points í einu
     ),
     "TWENTYTWO": Achieve(
         "TWENTYTWO",
         "Golden Mansion",
         "Collect 1000 gold in a single run",
-        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 1000
+        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 1000 # 1k gold í einu
     ),
     "TWENTYTHREE": Achieve(
         "TWENTYTHREE",
         "Golden Castle",
         "Collect 2000 gold in a single run",
-        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 2000
+        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 2000 # 2k gold í einu
     ),
     "TWENTYFOUR": Achieve(
         "TWENTYFOUR",
         "Golden White House",
         "Collect 3000 gold in a single run",
-        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 3000
+        lambda user: list(filter(lambda x: user == x.user(),[y for y in sorted(events["submiss"], key=lambda x: x.gold(), reverse=True)]))[0].gold() >= 3000 # 3k gold í einu
     )
 
 
@@ -279,8 +299,7 @@ events = {"achievs": {
 def rows(cur):
     return [x for x in cur]
 
-
-def updateTop():
+def updateTop(): # updates the JSON file for leaderboard
     data = {"top": []}
     for x in sorted(events["submiss"], key=lambda x: x.score(), reverse=True)[:min(len(events["submiss"]), 10)]:
         data["top"].append(
@@ -297,8 +316,7 @@ def updateTop():
         f.truncate()
         json.dump(data, f)
 
-
-def updateUsers():
+def updateUsers(): # updates JSON for users
     data = {"users": [], "submiss": []}
     for x in list(users["users"].values()):
         data["users"].append({
@@ -319,11 +337,10 @@ def updateUsers():
         f.truncate()
         json.dump(data, f)
 
-
-with conn.cursor() as cur:
+with conn.cursor() as cur: # syncs local data with database on run
     cur.execute("SELECT ID, name, PPicFile, descr, chieves FROM users")
     for x in cur:
-        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), (list(filter(lambda x: x is not None, [events["achievs"][y] if y != "" and y is not None else None for y in x[4].split(" ")])) if x[4] != "" else None))
+        users["users"][int(x[0])] = User(int(x[0]), str(x[1]), str(x[2]), str(x[3]), (list(filter(lambda x: x is not None, [events["achievs"][y] if y != "" and y is not None else None for y in x[4].split(" ")])) if x[4] != "" else None)) # creates user
     data = {"users": []}
     for x in list(users["users"].values()):
         data["users"].append({
@@ -376,16 +393,11 @@ with conn.cursor() as cur:
         f.truncate()
         json.dump(data, f)
 
-print(users)
-print(events)
-
-
-@route("/static/<filename>")
+@route("/static/<filename>") #css stuff
 def static_skrar(filename):
     return static_file(filename, root="./static")
 
-
-@route("/")
+@route("/") #home page if logged in, else login page
 def home():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -396,8 +408,7 @@ def home():
     else:
         return template("unlogged.tpl", logmsg=None, sigmsg=None)
 
-
-@route("/", method="POST")
+@route("/", method="POST") #submits login
 def home2():
     lvs = request.forms.get("LvS")
     if lvs == "login":
@@ -433,8 +444,7 @@ def home2():
     else:
         redirect("/")
 
-
-@route("/game")
+@route("/game") # game
 def game():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -445,8 +455,7 @@ def game():
     else:
         redirect("/")
 
-
-@route("/game", method="POST")
+@route("/game", method="POST") # game submission
 def game2():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -484,7 +493,7 @@ def game2():
                 ))
                 updateUsers()
                 updateTop()
-                for x in list(events["achievs"].values()):
+                for x in list(events["achievs"].values()): # updates achievements on submissions
                     if x.func(int(user_cookie)) and x not in users["users"][int(user_cookie)].achievements():
                         users["users"][int(user_cookie)].addAchievement(x)
                         cur.execute("UPDATE users SET chieves=CONCAT(chieves,\"" + x.ID() + " " + "\") WHERE ID=" + str(user_cookie) + ";")
@@ -496,8 +505,7 @@ def game2():
     else:
         redirect("/")
 
-
-@route("/reallylongandununderstandablelinktotheuser")
+@route("/reallylongandununderstandablelinktotheuser") # iframed userpage, we want to make sure you never find this page outside the iframe for your protection, trust me
 def user():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -509,7 +517,7 @@ def user():
     else:
         redirect("/")
 
-@route("/user")
+@route("/user") # redirects to userpage
 def user():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -520,7 +528,7 @@ def user():
     else:
         redirect("/")
 
-@route("/u/<username>")
+@route("/u/<username>") # dynamic route
 def userpage(username):
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -534,7 +542,7 @@ def userpage(username):
     else:
         redirect("/")
 
-@route("/u")
+@route("/u") # redirects to your own user
 def userpageredirect():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -546,7 +554,7 @@ def userpageredirect():
     else:
         redirect("/")
 
-@route("/useredit")
+@route("/useredit") # edit user page
 def userpageeditor():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -557,7 +565,7 @@ def userpageeditor():
     else:
         redirect("/")
 
-@route("/save", method="POST")
+@route("/save", method="POST") # save changes to user info
 def save():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -568,10 +576,11 @@ def save():
                 return "<h1>Username already exists<br><a href=\"/useredit\">TRY AGAIN</a></h1>"
             users["users"][int(user_cookie)].name(name)
             desc = request.forms.get("desc")
-            if not len(re.findall("^[^#*<>\"'{}\[\];]+$", desc)) and len(desc) != 0:
-                return desc + "  ? Hélstu virkilega að þetta myndi virka?"
+            if not len(re.findall("^[^#*<>\"'{}\[\];]+$", desc)) and len(desc) != 0: #anti xss attack regex
+                desc = sanitize(desc)
+                return desc + "  ? Did you really think that was going to work?"
             users["users"][int(user_cookie)].descr(desc)
-            img  = request.files.get("imageFile")
+            img = request.files.get("imageFile")
             if img is not None:
                 if users["users"][int(user_cookie)].profile() != "/static/android-icon-192x192.png":
                     try:
@@ -604,7 +613,7 @@ def save():
     else:
         redirect("/")
 
-@route("/leaderboards")
+@route("/leaderboards") # leaderboard iframed on website
 def leader():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -616,7 +625,7 @@ def leader():
     else:
         redirect("/")
 
-@route("/leaderpage")
+@route("/leaderpage") # leaderboard ordered by total score
 @route("/leaderpage", method="POST")
 def leaderboard():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
@@ -629,7 +638,7 @@ def leaderboard():
                 try:
                     int(page)
                     page = int(page)
-                except(ValueError):
+                except ValueError:
                     page = 0
             maxPage = len(list(users["users"].values()))//15+(len(list(users["users"].values()))%15!=0)
             if page >= maxPage:
@@ -644,7 +653,7 @@ def leaderboard():
     else:
         redirect("/")
 
-@route("/all")
+@route("/all") # all submissions ordered
 def leaderboards():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -655,7 +664,7 @@ def leaderboards():
     else:
         redirect("/")
 
-@route("/achievements")
+@route("/achievements") # achievements page
 def chavs():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
@@ -666,7 +675,7 @@ def chavs():
     else:
         redirect("/")
 
-@route("/process")
+@route("/process") # deletes user cookie
 def process():
     try:
         response.delete_cookie("user")
