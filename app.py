@@ -94,7 +94,6 @@ class Achieve(UserEvent): #creates achievements
         self.__descr = "" if descr is None else descr
         self.__func = funct
     def func(self, user):
-        print(self.__func(user))
         return self.__func(user)
     def name(self):
         return self.__name
@@ -332,7 +331,6 @@ def updateUsers(): # updates JSON for users
             "score": x.score(),
             "submiss": "Submission " + str(x.score())
         })
-    print(data)
     with open("./static/users.json", "w") as f:
         f.truncate()
         json.dump(data, f)
@@ -350,7 +348,6 @@ with conn.cursor() as cur: # syncs local data with database on run
             "descr"   : x.descr(),
             "chieves" : [[y.name(), y.descr()] for y in x.achievements()]
         })
-    print(data)
     with open("./static/users.json", "w") as f:
         f.truncate()
         json.dump(data, f)
@@ -570,9 +567,8 @@ def save():
     user_cookie = request.get_cookie("user")  # , secret="SuckMyTCP/IPv4"
     if user_cookie is not None:
         if int(user_cookie) in users["users"]:
-            print(users["users"][int(user_cookie)].profile())
             name = request.forms.get("name")
-            if name in [x.name() for x in list(users["users"].values())] and name != users["users"][int(user_cookie)].name():
+            if name in [x.name() for x in list(users["users"].values())] and name != users["users"][int(user_cookie)].name(): # If the user tries to update his name to an already existing name
                 return "<h1>Username already exists<br><a href=\"/useredit\">TRY AGAIN</a></h1>"
             users["users"][int(user_cookie)].name(name)
             desc = request.forms.get("desc")
@@ -581,22 +577,15 @@ def save():
                 return desc + "  ? Did you really think that was going to work?"
             users["users"][int(user_cookie)].descr(desc)
             img = request.files.get("imageFile")
-            if img is not None:
-                if users["users"][int(user_cookie)].profile() != "/static/android-icon-192x192.png":
+            if img is not None: # Ef notandi er að uppfæra profile myndina sína
+                if users["users"][int(user_cookie)].profile() != "/static/android-icon-192x192.png": # Tries to delete the previous profile picture if it is not the default
                     try:
                         os.remove("." + users["users"][int(user_cookie)].profile())
                     except: pass
-                img.filename = str(epoch()) + img.filename[indexOfNth(img.filename, ".", "last"):]
-                users["users"][int(user_cookie)].profile("/static/" + img.filename)
-                img.save("./static")
-            with conn.cursor() as cur:
-                print(
-                    "UPDATE users SET name = \"" \
-                    + users["users"][int(user_cookie)].name() \
-                    + "\", PPicFile = \""  + users["users"][int(user_cookie)].profile() \
-                    + "\", descr = \"" + users["users"][int(user_cookie)].descr() \
-                    + "\" WHERE ID = " + user_cookie + ";"
-                )
+                img.filename = str(epoch()) + img.filename[indexOfNth(img.filename, ".", "last"):] # Changes filename to seconds from epoch
+                users["users"][int(user_cookie)].profile("/static/" + img.filename) # Updates the user
+                img.save("./static") # Saves the picture
+            with conn.cursor() as cur: # Updates the database
                 cur.execute(
                     "UPDATE users SET name = \"" \
                     + users["users"][int(user_cookie)].name() \
@@ -605,8 +594,8 @@ def save():
                     + "\" WHERE ID = " + user_cookie + ";"
                 )
                 conn.commit()
-            updateUsers()
-            updateTop()
+            updateUsers() # Updates the JSON files
+            updateTop()   # ----------||----------
             redirect("/u")
         else:
             redirect("/process")
